@@ -3,1129 +3,407 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F6F5F3" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0F0F10" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#E8ECE1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A1020" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="მენიუ ♥">
-<title>შენი კვირის მენიუ</title>
+<meta name="apple-mobile-web-app-title" content="მაგიდა ორზე">
+<title>მაგიდა ორზე</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600&family=Noto+Serif+Georgian:wdth,wght@62.5..100,300..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wdth,wght@62.5..100,400..900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F6F5F3;
+    --bg: #E8ECE1;
+    --bg-2: #DDE3D3;
     --card: #FFFFFF;
-    --ink: #18181B;
-    --muted: #71717A;
-    --line: #E7E5E4;
-    --accent: #E5484D;
-    --good: #1F9D6B;
-    --chip: rgba(255, 255, 255, .92);
-    --shadow: 0 18px 40px -22px rgba(24, 24, 27, .35);
-    --display: "Noto Serif Georgian", Georgia, serif;
-    --body: "Noto Sans Georgian", system-ui, sans-serif;
-    --radius: 22px;
+    --paper: #FFFDF8;
+    --ink: #2B1631;
+    --muted: #6E6474;
+    --line: #CBD2C0;
+    --cherry: #E0294F;
+    --cherry-ink: #FFFFFF;
+    --butter: #FFD46A;
+    --leaf: #3E7B4F;
+    --shadow: 0 1px 2px rgb(43 22 49 / .08), 0 12px 32px -12px rgb(43 22 49 / .25);
+    --display: "Noto Sans Georgian", system-ui, sans-serif;
+    --mono: "JetBrains Mono", "Noto Sans Georgian", ui-monospace, monospace;
+    --r: 22px;
+    color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0F0F10;
-      --card: #1A1A1C;
-      --ink: #F4F4F5;
-      --muted: #A1A1AA;
-      --line: #2A2A2D;
-      --accent: #FF6369;
-      --good: #3DDC97;
-      --chip: rgba(26, 26, 28, .88);
-      --shadow: 0 18px 40px -22px rgba(0, 0, 0, .9);
+    :root:not([data-theme="light"]) {
+      --bg: #1A1020; --bg-2: #24172B; --card: #26182C; --paper: #F7F1E6; --ink: #F4ECF2; --muted: #A898AE;
+      --line: #3A2A40; --cherry: #FF4D6D; --butter: #FFD46A; --leaf: #7CC08F;
+      --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 16px 40px -12px rgb(0 0 0 / .6);
+      color-scheme: dark;
     }
   }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scroll-padding-top: 16px; }
-  html, body { overflow-x: clip; }
-  body {
-    background: var(--bg); color: var(--ink);
-    font-family: var(--body); line-height: 1.5; min-height: 100vh;
-    -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
+  :root[data-theme="dark"] {
+    --bg: #1A1020; --bg-2: #24172B; --card: #26182C; --paper: #F7F1E6; --ink: #F4ECF2; --muted: #A898AE;
+    --line: #3A2A40; --cherry: #FF4D6D; --butter: #FFD46A; --leaf: #7CC08F;
+    --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 16px 40px -12px rgb(0 0 0 / .6);
+    color-scheme: dark;
   }
-  button, input, textarea, select { font: inherit; color: inherit; }
-  img { display: block; }
-  a { color: inherit; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 24px 16px 72px; }
+  * { box-sizing: border-box; }
+  html, body { overflow-x: clip; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 400 16px/1.55 var(--display); font-variation-settings: "wdth" 100;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--cherry); outline-offset: 3px; border-radius: 8px; }
+
+  .display { font-weight: 900; font-stretch: 62.5%; font-variation-settings: "wdth" 62.5; letter-spacing: -.01em; line-height: .95; }
+  .eyebrow { font: 700 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .muted { color: var(--muted); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
 
   /* ---------- header ---------- */
-  header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 26px; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: .95rem; }
-  .avatar {
-    width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; flex: none;
-    background: conic-gradient(from 200deg, #F58529, #DD2A7B, #8134AF, #F58529); padding: 2px;
+  header.top {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
   }
-  .avatar span { width: 100%; height: 100%; border-radius: 50%; background: var(--card); display: grid; place-items: center; color: var(--accent); }
-  .topnav { display: flex; gap: 4px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px; }
-  .topnav a { text-decoration: none; font-size: .85rem; padding: 6px 14px; border-radius: 999px; }
-  .topnav a.on { background: var(--ink); color: var(--card); }
+  header.top .wrap { display: flex; align-items: center; gap: 16px; height: 60px; }
+  .logo { display: flex; align-items: baseline; gap: 8px; text-decoration: none; }
+  .logo b { font-size: 26px; }
+  .logo span { font: 700 11px/1 var(--mono); color: var(--cherry); letter-spacing: .1em; }
+  .topnav { margin-left: auto; display: flex; gap: 4px; }
+  .topnav a { text-decoration: none; padding: 8px 14px; border-radius: 99px; font-weight: 600; font-size: 15px; color: var(--muted); }
+  .topnav a.on { background: var(--ink); color: var(--bg); }
 
-  .eyebrow { font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
-  .muted { color: var(--muted); }
+  section { padding: 40px 0 24px; }
+  .sec-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .sec-head h2 { margin: 6px 0 0; font-size: clamp(40px, 7vw, 64px); }
 
-  /* ---------- today: swipe deck ---------- */
-  .match {
-    display: grid; grid-template-columns: 1fr minmax(0, 420px); column-gap: 56px; row-gap: 26px;
-    grid-template-areas: "text deck" "budget deck"; align-items: center; padding: 8px 0;
+  /* ---------- today ---------- */
+  .today { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 40px; align-items: start; padding-top: 28px; }
+  .today h1 { font-size: clamp(56px, 10vw, 112px); margin: 10px 0 14px; }
+  .today h1 em { font-style: normal; color: var(--cherry); }
+  .lede { font-size: 18px; max-width: 32em; margin: 0 0 22px; }
+  .note-chef {
+    display: inline-flex; gap: 10px; align-items: flex-start; background: var(--card); border-radius: 16px;
+    padding: 12px 16px; box-shadow: var(--shadow); max-width: 30em; margin-bottom: 24px; font-size: 15px;
   }
-  .match-text { grid-area: text; align-self: end; }
-  .budget { grid-area: budget; align-self: start; }
-  .deck-wrap { grid-area: deck; }
-  .match-text .eyebrow { display: inline-block; margin-bottom: 14px; }
-  .match-text h1 {
-    font-family: var(--display); font-weight: 800; font-stretch: 70%;
-    font-size: clamp(2.4rem, 6.5vw, 4.6rem); line-height: 1; margin-bottom: 14px;
-  }
-  .match-text p { color: var(--muted); max-width: 40ch; }
-  .match-text .note { font-family: var(--display); font-style: italic; font-weight: 300; font-size: 1.15rem; color: var(--ink); margin-top: 16px; padding-left: 14px; border-left: 3px solid var(--accent); }
+  .note-chef b { color: var(--cherry); white-space: nowrap; }
 
-  .budget { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px; max-width: 460px; }
-  .budget h3 { font-size: .95rem; font-weight: 600; margin-bottom: 12px; }
-  .budget-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .filters { display: grid; gap: 14px; background: var(--bg-2); border-radius: var(--r); padding: 18px; }
+  .filters h3 { margin: 0 0 8px; font-size: 13px; font: 700 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 0 -18px; padding: 2px 18px; }
+  .chips::-webkit-scrollbar { display: none; }
   .chip {
-    border: 1px solid var(--line); background: var(--bg); border-radius: 999px; padding: 7px 14px;
-    font-size: .85rem; cursor: pointer; white-space: nowrap; transition: background .2s, color .2s;
+    flex: none; border: 1.5px solid var(--line); background: var(--card); border-radius: 99px;
+    padding: 8px 14px; font-weight: 600; font-size: 14px; white-space: nowrap;
   }
-  .chip.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
-  .custom { display: flex; align-items: center; gap: 4px; border: 1px solid var(--line); background: var(--bg); border-radius: 999px; padding: 3px 12px; }
-  .custom.on { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
-  .custom input { width: 54px; border: 0; background: transparent; padding: 4px 0; font-size: .85rem; outline: none; }
-  .budget .muted { font-size: .8rem; margin-top: 10px; }
+  .chip.on { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .budget { display: grid; grid-template-columns: 1fr auto; gap: 6px 14px; align-items: center; }
+  .budget input[type=range] { width: 100%; accent-color: var(--cherry); height: 28px; }
+  .budget output { font: 700 22px/1 var(--mono); min-width: 4.5ch; text-align: right; }
+  .budget small { grid-column: 1 / -1; color: var(--muted); font-size: 13px; }
 
-  .deck { position: relative; aspect-ratio: 3 / 4; width: 100%; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
-  .swipe {
-    position: absolute; inset: 0; border-radius: 28px; overflow: hidden; background: #222;
-    box-shadow: var(--shadow); cursor: grab; will-change: transform;
+  /* deck */
+  .deck-col { position: sticky; top: 84px; grid-column: 2; grid-row: 1 / span 2; }
+  .deck { position: relative; aspect-ratio: 4 / 5; width: 100%; }
+  .card {
+    position: absolute; inset: 0; border-radius: 28px; overflow: hidden; background: var(--card);
+    box-shadow: var(--shadow); touch-action: pan-y; user-select: none; -webkit-user-select: none;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), opacity .35s;
   }
-  .swipe:active { cursor: grabbing; }
-  .swipe img, .swipe .placeholder { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-  .swipe::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.82) 100%); pointer-events: none; }
-  .swipe.behind { transform: scale(.94) translateY(18px); filter: brightness(.85); transition: transform .35s, filter .35s; cursor: default; }
-  .swipe-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 24px; color: #fff; z-index: 1; pointer-events: none; }
-  .swipe-info h2 { font-family: var(--display); font-weight: 800; font-stretch: 72%; font-size: clamp(1.9rem, 5vw, 2.6rem); line-height: 1.02; margin: 10px 0 12px; }
-  .pills { display: flex; flex-wrap: wrap; gap: 6px; }
-  .pill { display: inline-block; background: rgba(255,255,255,.18); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 999px; font-size: .78rem; font-weight: 600; }
-  .pill.mine { background: var(--accent); }
-  .info-btn {
-    pointer-events: auto; border: 0; cursor: pointer; background: #fff; color: #18181B;
-    border-radius: 999px; padding: 6px 14px; font-size: .8rem; font-weight: 600;
+  .card.back { transform: scale(.94) translateY(18px); opacity: .7; pointer-events: none; }
+  .card.dragging { transition: none; cursor: grabbing; }
+  .card img, .card .ph { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .ph { display: grid; place-items: center; font-size: 64px; background: var(--bg-2); }
+  .card .shade { position: absolute; inset: 0; background: linear-gradient(to top, rgb(20 8 24 / .88) 0%, rgb(20 8 24 / .2) 45%, transparent 65%); pointer-events: none; }
+  .card .info { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px; color: #fff; }
+  .card .info h3 { font-size: clamp(40px, 9vw, 58px); margin: 0 0 12px; text-wrap: balance; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font: 700 12px/1 var(--mono); padding: 7px 10px; border-radius: 99px; background: rgb(255 255 255 / .18); backdrop-filter: blur(6px); color: #fff; }
+  .tag.over { background: var(--cherry); }
+  .sticker {
+    position: absolute; top: 18px; left: 18px; background: var(--butter); color: #2B1631;
+    font-weight: 800; font-size: 14px; padding: 8px 14px; border-radius: 12px; transform: rotate(-4deg);
+    box-shadow: 0 4px 12px rgb(0 0 0 / .2);
+  }
+  .card .peek {
+    position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; border: 0;
+    background: rgb(255 255 255 / .9); color: #2B1631; font-size: 20px; font-weight: 800; box-shadow: 0 4px 12px rgb(0 0 0 / .2);
   }
   .stamp {
-    position: absolute; top: 30px; z-index: 2; padding: 4px 14px; border: 4px solid; border-radius: 12px;
-    font-family: var(--display); font-weight: 900; font-stretch: 70%; font-size: 2rem; opacity: 0; pointer-events: none;
+    position: absolute; top: 34%; padding: 8px 16px; border: 4px solid; border-radius: 12px;
+    font-weight: 900; font-size: 34px; font-stretch: 62.5%; font-variation-settings: "wdth" 62.5;
+    opacity: 0; pointer-events: none; background: rgb(255 255 255 / .85);
   }
-  .stamp.yes { left: 24px; color: #3DDC97; transform: rotate(-14deg); }
-  .stamp.no { right: 24px; color: #FF5A5F; transform: rotate(14deg); }
-  .empty-deck {
-    position: absolute; inset: 0; border-radius: 28px; border: 2px dashed var(--line); display: grid; place-items: center;
-    text-align: center; padding: 32px; color: var(--muted);
-  }
-  .empty-deck b { display: block; font-family: var(--display); font-size: 1.5rem; color: var(--ink); margin-bottom: 6px; }
-
-  .choices { display: flex; justify-content: center; gap: 26px; margin-top: 22px; }
+  .stamp.yes { left: 20px; color: var(--leaf); transform: rotate(-12deg); }
+  .stamp.no { right: 20px; color: var(--cherry); transform: rotate(12deg); }
+  .actions { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 18px; }
   .round {
-    width: 66px; height: 66px; border-radius: 50%; border: 1px solid var(--line); background: var(--card);
-    box-shadow: var(--shadow); font-size: 1.6rem; cursor: pointer; display: grid; place-items: center;
-    transition: transform .2s;
+    width: 64px; height: 64px; border-radius: 50%; border: 0; background: var(--card); box-shadow: var(--shadow);
+    font-size: 26px; display: grid; place-items: center; transition: transform .15s;
   }
-  .round:hover { transform: scale(1.1); }
-  .round.no { color: #FF5A5F; }
-  .round.yes { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .chosen .swipe { cursor: default; }
-  .chosen .stamp.yes { opacity: 1; }
-  .heart-pop { animation: heartPop .6s cubic-bezier(.2,.8,.2,1); }
-  @keyframes heartPop { 0% { transform: scale(.85); } 60% { transform: scale(1.04); } 100% { transform: none; } }
+  .round:active { transform: scale(.92); }
+  .round.no { color: var(--muted); }
+  .round.yes { width: 76px; height: 76px; background: var(--cherry); color: var(--cherry-ink); font-size: 32px; }
+  .round.dice { width: 52px; height: 52px; font-size: 22px; }
+  .deck-hint { text-align: center; font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+  .empty { position: absolute; inset: 0; border: 2px dashed var(--line); border-radius: 28px; display: grid; place-content: center; text-align: center; padding: 24px; gap: 8px; }
+  .empty b { font-size: 22px; }
 
-  /* ---------- sections & grids ---------- */
-  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin: 64px 0 16px; gap: 12px; flex-wrap: wrap; }
-  .section-head h2 { font-family: var(--display); font-weight: 700; font-stretch: 75%; font-size: 1.9rem; }
-  .section-head span { font-size: .85rem; color: var(--muted); }
-
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
-  .card {
-    background: var(--card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
-    cursor: pointer; text-align: left; display: flex; flex-direction: column; padding: 0;
-    transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+  /* ---------- the ticket ---------- */
+  .printer { position: relative; padding-top: 14px; }
+  .printer::before {
+    content: ""; position: absolute; top: 0; left: -10px; right: -10px; height: 18px; border-radius: 10px;
+    background: var(--ink); z-index: 2; box-shadow: 0 6px 10px -4px rgb(0 0 0 / .35);
   }
-  .card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
-  .card.is-today { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-  .photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--line); width: 100%; }
-  .grid.dishes .photo { aspect-ratio: 1; }
-  .photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.8,.2,1); }
-  .card:hover .photo img { transform: scale(1.06); }
-  .day-chip, .price-chip {
-    position: absolute; top: 12px; background: var(--chip); color: var(--ink);
-    font-size: .76rem; font-weight: 600; padding: 4px 11px; border-radius: 999px;
-    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  .slot { overflow: hidden; padding: 0 0 24px; margin-top: -6px; }
+  .ticket {
+    --edge: radial-gradient(circle at 8px 0, transparent 7px, var(--paper) 8px) 0 0 / 16px 10px repeat-x;
+    position: relative; background: var(--paper); color: #2B1631; padding: 26px 22px 22px; margin: 0 6px;
+    font-family: var(--mono); font-size: 14px; box-shadow: 0 10px 24px -10px rgb(0 0 0 / .35);
   }
-  .day-chip { left: 12px; }
-  .day-chip.now { background: var(--accent); color: #fff; }
-  .price-chip { right: 12px; }
-  .price-chip.over { background: var(--accent); color: #fff; }
-  .card-body { padding: 14px 16px 16px; display: grid; gap: 4px; }
-  .card-body h3 { font-family: var(--display); font-weight: 700; font-stretch: 80%; font-size: 1.22rem; line-height: 1.15; }
-  .card-body p { font-size: .8rem; color: var(--muted); }
-
-  .placeholder {
-    width: 100%; height: 100%; display: grid; place-items: center; font-size: 3rem;
-    background: radial-gradient(circle at 30% 20%, #FFD9C2, transparent 60%), radial-gradient(circle at 80% 90%, #F9C6D3, transparent 55%), #FBE9E1;
+  .ticket.fresh { animation: print 1.1s cubic-bezier(.3,.7,.2,1) both; }
+  .ticket::after { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 10px; background: var(--edge); transform: scaleY(-1); }
+  @keyframes print { from { transform: translateY(-100%); } to { transform: none; } }
+  .ticket .t-head { display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .06em; }
+  .ticket h4 { font-family: var(--display); font-weight: 900; font-stretch: 62.5%; font-variation-settings: "wdth" 62.5; font-size: 44px; line-height: .95; margin: 18px 0 4px; }
+  .ticket hr { border: 0; border-top: 2px dashed #2B163133; margin: 14px 0; }
+  .ticket .line { display: flex; gap: 8px; align-items: baseline; }
+  .ticket .line span:first-child { font-family: var(--display); }
+  .ticket .line .dots { flex: 1; border-bottom: 2px dotted #2B163155; transform: translateY(-4px); }
+  .ticket .total { font-weight: 700; font-size: 18px; }
+  .ticket label { display: block; font-size: 12px; letter-spacing: .06em; margin: 14px 0 6px; }
+  .ticket .extras { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ticket .extras button { border: 1.5px solid #2B163140; background: transparent; border-radius: 99px; padding: 6px 12px; font-family: var(--display); font-size: 14px; color: #2B1631; }
+  .ticket .extras button.on { background: #2B1631; color: var(--paper); border-color: #2B1631; }
+  .ticket textarea, .ticket select {
+    width: 100%; background: #2B16310d; border: 0; border-radius: 10px; padding: 10px 12px; color: #2B1631;
+    font-family: var(--display); font-size: 15px; resize: vertical;
   }
-
-  .filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 18px; }
-  .search {
-    flex: 1 1 220px; border: 1px solid var(--line); background: var(--card); border-radius: 999px;
-    padding: 9px 16px; font-size: .9rem; outline: none;
+  .ticket .stampmark {
+    position: absolute; right: 18px; top: 58px; border: 3px solid var(--cherry); color: var(--cherry); border-radius: 10px;
+    padding: 4px 10px; font-family: var(--display); font-weight: 900; font-size: 20px; transform: rotate(10deg);
+    opacity: .9;
   }
-  .search:focus { border-color: var(--ink); }
-  .cats { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
-  .cats::-webkit-scrollbar { display: none; }
-  select.sort { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 8px 14px; font-size: .85rem; }
-  .none { color: var(--muted); padding: 30px 0; text-align: center; grid-column: 1 / -1; }
+  .fresh .stampmark { animation: thunk .4s 1s cubic-bezier(.3,1.6,.5,1) both; }
+  @keyframes thunk { from { transform: rotate(10deg) scale(2.2); opacity: 0; } to { transform: rotate(10deg) scale(1); opacity: .9; } }
+  .ticket .t-actions { display: flex; gap: 8px; margin-top: 18px; }
+  .ticket .t-actions button { flex: 1; }
 
-  /* ---------- dialog ---------- */
+  .btn { border: 0; border-radius: 14px; padding: 13px 18px; font-weight: 700; font-size: 15px; background: var(--ink); color: var(--bg); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn.cherry { background: var(--cherry); color: var(--cherry-ink); }
+  .btn.ghost { background: transparent; color: inherit; border: 1.5px solid currentColor; }
+  .ticket .btn { background: #2B1631; color: var(--paper); font-family: var(--display); }
+  .ticket .btn.ghost { background: transparent; color: #2B1631; }
+
+  /* ---------- week ---------- */
+  .week-total { font: 700 14px/1.3 var(--mono); text-align: right; }
+  .week-total b { display: block; font-size: 28px; color: var(--cherry); }
+  .strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(200px, 1fr); gap: 14px; overflow-x: auto; padding: 10px 20px 18px; margin: 0 -20px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .day {
+    scroll-snap-align: start; border: 0; padding: 0; text-align: left; background: var(--card); border-radius: 20px;
+    overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; position: relative;
+  }
+  .day.is-today { outline: 3px solid var(--cherry); outline-offset: 3px; }
+  .day .pic { aspect-ratio: 1; position: relative; }
+  .day .pic img, .day .pic .ph { width: 100%; height: 100%; object-fit: cover; }
+  .day .dname { position: absolute; top: 10px; left: 10px; background: var(--card); color: var(--ink); border-radius: 99px; padding: 5px 11px; font-weight: 700; font-size: 13px; }
+  .day .dname.now { background: var(--cherry); color: var(--cherry-ink); }
+  .day .body { padding: 12px 14px 14px; display: grid; gap: 4px; }
+  .day .body b { font-size: 24px; font-weight: 900; font-stretch: 62.5%; font-variation-settings: "wdth" 62.5; line-height: 1; }
+  .day .body small { color: var(--muted); font-size: 13px; }
+  .day .price { font: 700 13px/1 var(--mono); color: var(--cherry); }
+
+  /* ---------- menu (catalog) ---------- */
+  .menu-tools { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 12px; }
+  .menu-tools input, .menu-tools select { border: 1.5px solid var(--line); background: var(--card); border-radius: 14px; padding: 11px 14px; width: 100%; }
+  .menu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin-top: 18px; }
+  .cat-title { grid-column: 1 / -1; font-size: 40px; margin: 26px 0 6px; display: flex; align-items: baseline; gap: 12px; }
+  .cat-title small { font: 700 12px/1 var(--mono); color: var(--muted); letter-spacing: .08em; }
+  .row {
+    display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 12px 0;
+    border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; width: 100%;
+  }
+  .row .thumb { width: 64px; height: 64px; border-radius: 16px; overflow: hidden; }
+  .row .thumb img, .row .thumb .ph { width: 100%; height: 100%; object-fit: cover; font-size: 26px; }
+  .row b { font-size: 17px; display: flex; gap: 6px; align-items: center; }
+  .row small { display: block; color: var(--muted); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .row .p { font: 700 16px/1 var(--mono); text-align: right; }
+  .row .p small { font-weight: 400; font-size: 11px; margin-top: 4px; }
+  .row.over .p { color: var(--muted); text-decoration: line-through; }
+  .fav { color: var(--cherry); }
+  .no-results { grid-column: 1 / -1; padding: 30px 0; color: var(--muted); }
+
+  /* ---------- us (history) ---------- */
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 20px; }
+  .stat { background: var(--card); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
+  .stat b { display: block; font-size: 44px; color: var(--cherry); }
+  .stat span { font-size: 14px; color: var(--muted); }
+  .history { display: grid; gap: 10px; }
+  .h-row { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 14px; align-items: center; background: var(--card); border-radius: 18px; padding: 10px; }
+  .h-row .thumb { width: 56px; height: 56px; border-radius: 14px; overflow: hidden; }
+  .h-row .thumb img, .h-row .thumb .ph { width: 100%; height: 100%; object-fit: cover; font-size: 22px; }
+  .hearts { display: flex; }
+  .hearts button { border: 0; background: none; font-size: 20px; padding: 4px 2px; color: var(--line); }
+  .hearts button.on { color: var(--cherry); }
+  .empty-us { border: 2px dashed var(--line); border-radius: 20px; padding: 28px; text-align: center; color: var(--muted); }
+
+  footer { padding: 40px 0 60px; text-align: center; color: var(--muted); font-size: 13px; }
+  footer p { margin: 4px 0; }
+
+  /* ---------- sheet ---------- */
   dialog {
-    border: 0; padding: 0; border-radius: 26px; background: var(--card); color: var(--ink);
-    width: min(900px, calc(100% - 32px)); max-height: calc(100% - 32px); margin: auto; overflow: auto;
-    box-shadow: 0 40px 80px -30px rgba(0,0,0,.5);
+    border: 0; padding: 0; width: min(560px, 100vw); max-height: 92vh; border-radius: 28px; background: var(--card); color: var(--ink);
+    box-shadow: 0 30px 80px rgb(0 0 0 / .4);
   }
-  dialog::backdrop { background: rgba(10,10,12,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-  dialog[open] { animation: pop .35s cubic-bezier(.2,.8,.2,1); }
-  @keyframes pop { from { transform: translateY(16px) scale(.98); opacity: 0; } }
-  .sheet { display: grid; grid-template-columns: 1fr 1.1fr; }
-  .sheet > .photo { aspect-ratio: auto; min-height: 440px; }
-  .sheet.recipe > .photo { position: sticky; top: 0; height: min(100%, 640px); max-height: calc(100vh - 32px); }
-  .sheet-body { padding: 28px; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
-  .sheet-top { display: flex; justify-content: space-between; align-items: center; }
-  .close { border: 0; background: var(--bg); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; flex: none; }
-  .sheet h2 { font-family: var(--display); font-weight: 800; font-stretch: 72%; font-size: 2.3rem; line-height: 1.05; }
-  .sheet h4 { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
-  .meta { display: flex; flex-wrap: wrap; gap: 8px; }
-  .meta span { background: var(--bg); border-radius: 999px; padding: 5px 12px; font-size: .82rem; }
-  .meta .cost { background: var(--good); color: #fff; font-weight: 600; }
-  .meta .cost.over { background: var(--accent); }
-  .meals { display: grid; gap: 10px; }
-  .meals div { display: grid; grid-template-columns: 80px 1fr; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
-  .meals small { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding-top: 3px; }
-  .sheet .note { font-family: var(--display); font-style: italic; font-weight: 300; font-size: 1.1rem; color: var(--muted); }
+  dialog::backdrop { background: rgb(26 16 32 / .55); backdrop-filter: blur(4px); }
+  .sheet-hero { position: relative; aspect-ratio: 16 / 10; }
+  .sheet-hero img, .sheet-hero .ph { width: 100%; height: 100%; object-fit: cover; }
+  .x { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgb(255 255 255 / .92); color: #2B1631; font-size: 18px; font-weight: 800; z-index: 2; }
+  .sheet-body { padding: 22px 22px 26px; }
+  .sheet-body h2 { font-size: 48px; margin: 4px 0 12px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .pill { font: 700 12px/1 var(--mono); padding: 8px 11px; border-radius: 99px; background: var(--bg-2); }
+  .pill.c { background: var(--cherry); color: var(--cherry-ink); }
+  .sheet-body h3 { font: 700 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 22px 0 10px; }
+  .ings { list-style: none; margin: 0; padding: 0; }
+  .ings li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto auto; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+  .ings li .box { width: 22px; height: 22px; border: 2px solid var(--line); border-radius: 7px; display: grid; place-items: center; font-size: 13px; color: transparent; }
+  .ings li.got .box { background: var(--leaf); border-color: var(--leaf); color: #fff; }
+  .ings li.got .n { text-decoration: line-through; color: var(--muted); }
+  .ings .amt { color: var(--muted); font-size: 13px; }
+  .ings .pr { font: 700 13px/1 var(--mono); min-width: 5ch; text-align: right; }
+  .ings-total { display: flex; justify-content: space-between; font: 700 16px/1 var(--mono); padding: 14px 0 0; }
+  .ings-total span:last-child { color: var(--cherry); }
+  .steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 12px; }
+  .steps li { counter-increment: s; display: grid; grid-template-columns: 32px 1fr; gap: 10px; }
+  .steps li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font: 700 13px/1 var(--mono); }
+  .sheet-actions { display: grid; gap: 10px; margin-top: 24px; }
+  .sheet-actions .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .edit label { display: block; font-weight: 600; font-size: 14px; margin: 14px 0 6px; }
+  .edit input, .edit textarea { width: 100%; border: 1.5px solid var(--line); background: var(--bg); border-radius: 12px; padding: 11px 13px; }
+  .edit .err { color: var(--cherry); min-height: 1.4em; margin: 10px 0 0; font-size: 14px; }
+  .upload { position: absolute; bottom: 14px; left: 14px; display: flex; gap: 8px; }
+  .upload label, .upload button { background: rgb(255 255 255 / .92); color: #2B1631; border: 0; border-radius: 99px; padding: 8px 14px; font-weight: 700; font-size: 14px; cursor: pointer; }
 
-  table.ings { width: 100%; border-collapse: collapse; font-size: .9rem; }
-  .ings td { padding: 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
-  .ings td:nth-child(2) { color: var(--muted); padding: 8px 10px; white-space: nowrap; }
-  .ings td:last-child { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
-  .ings tfoot td { font-weight: 600; border-bottom: 0; padding-top: 12px; }
-  ol.steps { padding-left: 0; list-style: none; counter-reset: s; display: grid; gap: 12px; }
-  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; gap: 10px; font-size: .93rem; }
-  ol.steps li::before {
-    content: counter(s); width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: var(--card);
-    display: grid; place-items: center; font-size: .78rem; font-weight: 600;
-  }
-  .fine { font-size: .75rem; color: var(--muted); }
+  .shuffle { position: absolute; inset: 0; border-radius: 28px; overflow: hidden; z-index: 5; }
+  .shuffle img { width: 100%; height: 100%; object-fit: cover; }
 
-  .actions { display: flex; gap: 10px; flex-wrap: wrap; }
-  .sheet-body > .actions:last-child { margin-top: auto; }
-  .btn {
-    border: 0; border-radius: 999px; padding: 10px 18px; cursor: pointer; font-weight: 600; font-size: .88rem;
-    background: var(--ink); color: var(--card); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-  }
-  .btn.soft { background: var(--bg); color: var(--ink); font-weight: 500; }
-  .btn.accent { background: var(--accent); color: #fff; }
-  .btn.video { background: #FF0033; color: #fff; }
-
-  form.edit { display: grid; gap: 12px; }
-  form.edit label { display: grid; gap: 4px; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
-  form.edit input[type=text], form.edit textarea {
-    text-transform: none; letter-spacing: 0; font-size: .95rem; font-weight: 400; color: var(--ink);
-    background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; resize: vertical; width: 100%;
-  }
-  .upload { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; gap: 8px; z-index: 1; }
-  .upload label, .upload button { background: var(--chip); color: var(--ink); border: 0; border-radius: 999px; padding: 8px 14px; font-size: .82rem; font-weight: 600; cursor: pointer; white-space: nowrap; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-  .upload input { position: absolute; width: 1px; height: 1px; opacity: 0; }
-  .error { color: var(--accent); font-size: .85rem; }
-
-  footer { margin-top: 56px; text-align: center; color: var(--muted); font-family: var(--display); font-style: italic; }
-
-  /* ---------- phone tab bar ---------- */
+  /* ---------- phone ---------- */
   .tabbar { display: none; }
-
-  @media (max-width: 760px) {
-    .wrap { padding: 16px 16px calc(96px + env(safe-area-inset-bottom)); }
-    header { margin-bottom: 18px; }
+  @media (max-width: 820px) {
     .topnav { display: none; }
-    .match > * { min-width: 0; }
-    .match { grid-template-columns: minmax(0, 1fr); grid-template-areas: "text" "budget" "deck"; row-gap: 18px; text-align: center; padding: 0; }
-    .match-text h1 { margin-bottom: 8px; }
-    .match-text p { margin: 0 auto; font-size: .92rem; }
-    .match-text .note { border-left: 0; padding-left: 0; font-size: 1.05rem; margin-top: 10px; }
-    .budget { max-width: none; padding: 14px; text-align: left; }
-    .budget-row { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -14px; padding: 0 14px; }
-    .budget-row::-webkit-scrollbar { display: none; }
-    .deck { max-width: 380px; margin: 0 auto; aspect-ratio: 4 / 5; }
-    .section-head { margin-top: 48px; }
-    .section-head h2 { font-size: 1.6rem; }
-    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .card-body { padding: 10px 12px 12px; }
-    .card-body h3 { font-size: 1.02rem; }
-    .grid.week .card-body p { display: none; }
-    .day-chip, .price-chip { top: 8px; font-size: .7rem; padding: 3px 9px; }
-    .day-chip { left: 8px; } .price-chip { right: 8px; }
-    .filters { gap: 8px; }
-    .cats { width: 100%; margin: 0 -16px; padding: 0 16px; }
-
-    dialog { width: 100%; max-width: none; max-height: 92vh; margin: auto 0 0; border-radius: 26px 26px 0 0; }
-    dialog[open] { animation: slideUp .35s cubic-bezier(.2,.8,.2,1); }
-    .sheet { grid-template-columns: 1fr; }
-    .sheet > .photo, .sheet.recipe > .photo { position: relative; min-height: 0; height: auto; aspect-ratio: 16 / 10; }
-    .sheet-body { padding: 20px 20px calc(24px + env(safe-area-inset-bottom)); }
-    .sheet h2 { font-size: 1.9rem; }
-
+    .today { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-top: 18px; }
+    .today > * { min-width: 0; }
+    .today h1 { font-size: 46px; margin: 6px 0 8px; }
+    .lede { font-size: 15px; margin-bottom: 4px; }
+    .deck { max-height: 58vh; }
+    .note-chef { margin-bottom: 0; }
+    .deck-col { position: static; order: -1; grid-column: auto; grid-row: auto; }
+    .intro { order: -2; }
+    .deck { aspect-ratio: 4 / 5; max-height: 62vh; margin: 0 auto; }
+    .menu { grid-template-columns: minmax(0, 1fr); }
+    .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .stat { padding: 14px 12px; }
+    .stat b { font-size: 32px; }
+    .stat span { font-size: 12px; }
+    .strip { grid-auto-columns: 62%; }
+    dialog { margin: auto 0 0; width: 100vw; max-width: 100vw; border-radius: 28px 28px 0 0; max-height: 94vh; animation: up .3s cubic-bezier(.2,.8,.2,1); }
+    @keyframes up { from { transform: translateY(40%); opacity: 0; } }
     .tabbar {
-      display: flex; position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 10;
-      background: var(--chip); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--line); border-radius: 22px; padding: 6px; box-shadow: var(--shadow);
+      display: grid; grid-template-columns: repeat(4, 1fr); position: fixed; left: 12px; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom));
+      z-index: 30; background: var(--ink); border-radius: 22px; padding: 6px; box-shadow: 0 12px 30px rgb(0 0 0 / .3);
     }
-    .tabbar a { flex: 1; display: grid; justify-items: center; gap: 1px; text-decoration: none; font-size: .7rem; padding: 6px 0; border-radius: 16px; color: var(--muted); }
-    .tabbar a span { font-size: 1.25rem; line-height: 1.2; }
-    .tabbar a.on { background: var(--ink); color: var(--card); }
+    .tabbar a { text-decoration: none; color: color-mix(in srgb, var(--bg) 70%, transparent); display: grid; justify-items: center; gap: 2px; padding: 6px 0; border-radius: 16px; font-size: 11px; font-weight: 700; }
+    .tabbar a span { font-size: 19px; line-height: 1.1; }
+    .tabbar a.on { background: color-mix(in srgb, var(--bg) 14%, transparent); color: var(--bg); }
+    footer { padding-bottom: 120px; }
   }
-  @keyframes slideUp { from { transform: translateY(40%); opacity: .4; } }
   @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="brand"><div class="avatar"><span>♥</span></div>ჩემი სამზარეულო შენთვის</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#today"><b class="display">მაგიდა ორზე</b><span>♥ მხოლოდ შენთვის</span></a>
     <nav class="topnav" aria-label="განყოფილებები">
       <a href="#today" data-sec="today">დღეს</a>
       <a href="#week" data-sec="week">კვირა</a>
-      <a href="#dishes" data-sec="dishes">კერძები</a>
+      <a href="#menu" data-sec="menu">მენიუ</a>
+      <a href="#us" data-sec="us">ჩვენ</a>
     </nav>
-  </header>
+  </div>
+</header>
 
-  <section class="match" id="today" aria-live="polite">
-    <div class="match-text" id="matchText"></div>
-    <div class="budget" id="budget"></div>
-    <div class="deck-wrap" id="deckWrap"></div>
+<main class="wrap">
+  <section id="today" class="today">
+    <div class="intro" id="intro"></div>
+    <div class="deck-col" id="deckCol"></div>
+    <div class="filters" id="filters"></div>
   </section>
 
   <section id="week">
-    <div class="section-head">
-      <h2>მთელი კვირა</h2>
-      <span id="weekMeta"></span>
+    <div class="sec-head">
+      <div><span class="eyebrow" id="weekRange"></span><h2 class="display">ამ კვირის მენიუ</h2></div>
+      <div class="week-total" id="weekTotal"></div>
     </div>
-    <div class="grid week" id="grid"></div>
+    <div class="strip" id="strip"></div>
+    <p class="muted" style="font-size:14px;margin:4px 0 0">დღეზე დააჭირე, რომ მენიუ ნახო ან შეცვალო.</p>
   </section>
 
-  <section id="dishes">
-    <div class="section-head">
-      <h2>კერძები</h2>
-      <span id="dishCount"></span>
+  <section id="menu">
+    <div class="sec-head">
+      <div><span class="eyebrow" id="menuCount"></span><h2 class="display">მენიუ</h2></div>
     </div>
-    <div class="filters">
-      <input class="search" id="search" type="search" placeholder="მოძებნე კერძი ან ინგრედიენტი…" aria-label="კერძის ძებნა">
-      <select class="sort" id="sort" aria-label="დალაგება">
+    <div class="menu-tools">
+      <input id="search" type="search" placeholder="მოძებნე კერძი ან ინგრედიენტი…" aria-label="ძებნა">
+      <select id="sort" aria-label="დალაგება">
+        <option value="cat">კატეგორიით</option>
         <option value="cheap">ჯერ იაფი</option>
         <option value="pricey">ჯერ ძვირი</option>
         <option value="fast">ჯერ სწრაფი</option>
       </select>
-      <div class="cats" id="cats"></div>
     </div>
-    <div class="grid dishes" id="dishGrid"></div>
-    <p class="fine" style="margin-top:18px">ფასები მიახლოებითია, 2 პორციაზე, თბილისის მაღაზიების მიხედვით.</p>
+    <div class="chips" id="cats" style="margin:0;padding:2px 0"></div>
+    <div class="menu" id="menuList"></div>
+    <p class="muted" style="font-size:13px;margin-top:18px">ფასები მიახლოებითია, 2 პორციაზე, თბილისის მაღაზიების მიხედვით.</p>
   </section>
 
-  <footer>ყველაფერი შენთვის, სიყვარულით ♥<br><small>კერძების ფოტოები: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA ლიცენზიით, ავტორების მითითებით იქ)</small></footer>
-</div>
+  <section id="us">
+    <div class="sec-head">
+      <div><span class="eyebrow">ჩვენი ვახშმები</span><h2 class="display">ჩვენ</h2></div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="history" id="history"></div>
+  </section>
+
+  <footer>
+    <p>მზადდება სიყვარულით, ყოველ საღამოს ♥</p>
+    <p>კერძების ფოტოები: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA, ავტორები მითითებულია იქ)</p>
+  </footer>
+</main>
 
 <nav class="tabbar" aria-label="განყოფილებები">
   <a href="#today" data-sec="today"><span>♥</span>დღეს</a>
-  <a href="#week" data-sec="week"><span>📅</span>კვირა</a>
-  <a href="#dishes" data-sec="dishes"><span>🍽</span>კერძები</a>
+  <a href="#week" data-sec="week"><span>☷</span>კვირა</a>
+  <a href="#menu" data-sec="menu"><span>☰</span>მენიუ</a>
+  <a href="#us" data-sec="us"><span>★</span>ჩვენ</a>
 </nav>
 
 <dialog id="sheet" aria-label="დეტალები"></dialog>
 
-<script>
-  /* =========================================================
-     Dish catalog. Prices are rough Tbilisi supermarket prices
-     in lari for two portions; ingredients: [name, amount, ₾].
-     ========================================================= */
-  const CATS = { ge: "ქართული", world: "მსოფლიო", breakfast: "საუზმე", dessert: "დესერტი" };
-  // img is a Wikimedia Commons path we can thumbnail; full is used for images too small to thumbnail.
-  const D = (id, name, cat, time, img, ings, steps, video, full) => ({ id, name, cat, time, img, ings, steps, video, full });
-
-  const CATALOG = [
-    D("khachapuri", "ხაჭაპური აჭარული", "ge", 90, "0/08/Old_Tbilisi%2C_Georgian_khachapuri%2C_Georgia.jpg",
-      [["ფქვილი", "500 გ", 1.2], ["სულგუნი", "400 გ", 7.5], ["იმერული ყველი", "300 გ", 5], ["კვერცხი", "3 ც", 1.5], ["კარაქი", "100 გ", 3], ["რძე და საფუარი", "", 1.5]],
-      ["თბილ რძეში გახსენი საფუარი, დაამატე ფქვილი და მოზილე რბილი ცომი. 1 საათით დაასვენე.", "ორივე ყველი გახეხე და ერთმანეთს შეურიე, ცოტა რძე დაამატე.", "ცომი ორად გაყავი, გააბრტყელე და ნავის ფორმა მიეცი. შუაში ყველი ჩადე.", "230°-ზე გამოაცხვე 12–15 წუთი, სანამ კიდეები არ შეიბრაწება.", "ამოიღე, შუაში კვერცხის გული და კარაქი ჩადე, 1–2 წუთით დააბრუნე ღუმელში."],
-      "აჭარული ხაჭაპური რეცეპტი"),
-    D("khinkali", "ხინკალი", "ge", 120, "d/df/Khinkali%2C_Restaurant_Aragvi.jpg",
-      [["ფქვილი", "1 კგ", 2.2], ["საქონლის და ღორის ფარში", "800 გ", 15], ["ხახვი", "2 ც", 0.6], ["ნიორი", "3 კბილი", 0.4], ["ძირა, წიწაკა", "", 1], ["ქინძი", "1 კონა", 1]],
-      ["ფქვილი, წყალი და მარილი მაგრად მოზილე, 30 წუთით დაასვენე.", "ფარშს დაამატე წვრილად დაჭრილი ხახვი, ნიორი, სუნელები და ცივი წყალი, სანამ წვნიანი არ გახდება.", "ცომი თხლად გააბრტყელე და მრგვლად ამოჭერი.", "ყოველ წრეში ფარში ჩადე და ნაოჭებით შეკარი, ზემოთ კუდი დაუტოვე.", "ადუღებულ მარილიან წყალში მოხარშე 12–14 წუთი."],
-      "ხინკალი რეცეპტი"),
-    D("lobio", "ლობიო მჭადით", "ge", 120, "8/89/Lobio_with_summer_savory_and_ajika.jpg",
-      [["წითელი ლობიო", "500 გ", 3.5], ["სიმინდის ფქვილი", "500 გ", 1.5], ["ხახვი", "2 ც", 0.6], ["ნიგოზი", "100 გ", 2.5], ["ქინძი", "1 კონა", 1], ["ნიორი, სუნელები", "", 0.9]],
-      ["ლობიო ღამით დაალბე, შემდეგ მოხარშე სანამ არ დარბილდება (1–1.5 სთ).", "ხახვი ზეთში მოშუშე და ლობიოს დაუმატე.", "ნიგოზი, ნიორი, უცხო სუნელი და ქინძი დანაყე და შეურიე.", "მჭადისთვის სიმინდის ფქვილი თბილ წყალთან მოზილე, ბრტყლად მოაყალიბე და ტაფაზე ორივე მხრიდან შეწვი."],
-      "ლობიო ქოთანში რეცეპტი"),
-    D("chikhirtma", "ჩიხირთმა", "ge", 90, "a/aa/Chikhirtma.jpg",
-      [["ქათამი", "1 კგ", 11], ["კვერცხი", "3 ც", 1.5], ["ხახვი", "2 ც", 0.6], ["ფქვილი", "2 კ/კ", 0.2], ["ლიმონი ან ძმარი", "", 0.8], ["ქინძი", "1 კონა", 1]],
-      ["ქათამი მოხარშე, ბულიონი გადაწურე, ხორცი ნაჭრებად დაგლიჯე.", "ხახვი კარაქში მოშუშე, ფქვილი მოაყარე და ბულიონი დაასხი.", "კვერცხის გულები ლიმონის წვენთან ათქვიფე.", "ცხელი ბულიონი ნელ-ნელა შეურიე კვერცხს, მერე ქვაბში დააბრუნე. აღარ აადუღო.", "ჩაყარე ქათამი და ქინძი."],
-      "ჩიხირთმა რეცეპტი"),
-    D("ajapsandali", "აჯაფსანდალი", "ge", 60, "4/46/Ajapsandali_-_Georgian_eggplant_stew.jpg",
-      [["ბადრიჯანი", "1 კგ", 4], ["პომიდორი", "500 გ", 2.5], ["ბულგარული წიწაკა", "3 ც", 2.5], ["ხახვი", "2 ც", 0.6], ["ნიორი", "1 თავი", 0.5], ["მწვანილი", "2 კონა", 2], ["ზეთი", "", 1]],
-      ["ბადრიჯანი კუბიკებად დაჭერი, დამარილე და 15 წუთით დატოვე, მერე გამოწურე.", "ბადრიჯანი ზეთში შეწვი, გადმოიღე.", "იმავე ქვაბში მოშუშე ხახვი და წიწაკა, მერე პომიდორი.", "დააბრუნე ბადრიჯანი, 20 წუთი ნელ ცეცხლზე ჩაშუშე.", "ბოლოს ნიორი და მწვანილი ჩაყარე."],
-      "აჯაფსანდალი რეცეპტი"),
-    D("mtsvadi", "მწვადი", "ge", 60, "1/17/Shashlik.jpg",
-      [["ღორის კისერი", "1 კგ", 19], ["ხახვი", "3 ც", 1], ["ტყემალი", "1 ბოთლი", 3], ["ლავაში", "2 ც", 2]],
-      ["ხორცი დიდ ნაჭრებად დაჭერი, ხახვით და მარილით დაამარინადე 2 საათი.", "შამფურებზე ააცვი.", "ღადარზე წვი, ხშირად ატრიალე, 20–25 წუთი.", "მიირთვი რგოლებად დაჭრილ ხახვთან, ლავაშთან და ტყემალთან."],
-      "ღორის მწვადი რეცეპტი"),
-    D("chakapuli", "ჩაქაფული", "ge", 120, "5/51/PXL_20260504_183036483.MP.jpg",
-      [["ბატკნის ხორცი", "1 კგ", 28], ["ტარხუნა", "3 კონა", 3], ["ქინძი და ოხრახუში", "", 2], ["თეთრი ღვინო", "300 მლ", 4], ["მწვანე ტყემალი", "200 გ", 3], ["ნიორი", "1 თავი", 0.5]],
-      ["ხორცი ნაჭრებად დაჭერი და ქვაბში ჩააწყვე.", "ზედ დაყარე დაჭრილი ტარხუნა, ქინძი, ოხრახუში და ნიორი.", "დაასხი ღვინო, დაამატე ტყემალი და მარილი.", "თავდახურული ნელ ცეცხლზე ჩაშუშე 1.5 საათი."],
-      "ჩაქაფული რეცეპტი"),
-    D("shkmeruli", "შქმერული", "ge", 60, "b/b6/Georgian_cuisine_%2833309210248%29.jpg",
-      [["ქათამი", "1 კგ", 11], ["ნიორი", "2 თავი", 1.5], ["ნაღები ან რძე", "300 მლ", 4], ["კარაქი", "100 გ", 3]],
-      ["ქათამი ზურგიდან გაჭერი და გააბრტყელე, დამარილე.", "ტაფაზე ან ღუმელში შეწვი ოქროსფრად, 30–35 წუთი.", "ნიორი დანაყე და ნაღებთან ერთად გააცხელე.", "ქათამს თიხის კეცში დაასხი ნივრის სოუსი და 10 წუთით ჩადე ღუმელში."],
-      "შქმერული რეცეპტი"),
-    D("badrijani", "ბადრიჯანი ნიგვზით", "ge", 45, "2/25/Badrijani_%28cropped%29.jpg",
-      [["ბადრიჯანი", "3 ც", 3], ["ნიგოზი", "200 გ", 5], ["ნიორი", "3 კბილი", 0.5], ["სუნელები", "", 0.5], ["ბროწეული", "1 ც", 2], ["ზეთი", "", 1]],
-      ["ბადრიჯანი სიგრძეზე თხლად დაჭერი და ორივე მხრიდან შეწვი.", "ნიგოზი, ნიორი, უცხო სუნელი, ძმარი და ცოტა წყალი ერთად დაბლენდე.", "თითოეულ ზოლზე ნიგვზის მასა წაუსვი და დაახვიე.", "ზემოდან ბროწეულის მარცვლები მოაყარე."],
-      "ბადრიჯანი ნიგვზით რეცეპტი"),
-    D("pkhali", "ისპანახის ფხალი", "ge", 40, "1/1b/Pkhali%2C_Badrijani_and_Ajika.jpg",
-      [["ისპანახი", "1 კგ", 5], ["ნიგოზი", "150 გ", 3.8], ["ნიორი", "2 კბილი", 0.3], ["ხახვი", "1 ც", 0.3], ["ბროწეული", "1 ც", 2], ["სუნელები", "", 0.5]],
-      ["ისპანახი 2 წუთით ჩაყარე მდუღარეში, მერე კარგად გამოწურე.", "წვრილად დაჭერი.", "ნიგოზი, ნიორი, ხახვი და სუნელები დანაყე.", "ყველაფერი ერთად შეურიე, ბურთულებად მოაყალიბე, ბროწეული დააყარე."],
-      "ფხალი ისპანახის რეცეპტი"),
-    D("kubdari", "კუბდარი", "ge", 100, "0/04/Kubdari_meat_pastry.jpg",
-      [["ფქვილი", "500 გ", 1.2], ["საქონლის და ღორის ხორცი", "600 გ", 13], ["ხახვი", "2 ც", 0.7], ["სვანური მარილი", "", 1.5], ["მაწონი და საფუარი", "", 2]],
-      ["მაწონზე და საფუარზე მოზილე ცომი, 1 საათით დაასვენე.", "ხორცი წვრილად დაჭერი დანით, შეურიე ხახვი და სვანური მარილი.", "ცომი გააბრტყელე, შუაში ხორცი ჩადე, დაკეცე და ისევ გააბრტყელე.", "250°-ზე გამოაცხვე 20 წუთი, ზემოდან კარაქი წაუსვი."],
-      "კუბდარი რეცეპტი"),
-    D("ojakhuri", "ოჯახური", "ge", 50, "7/79/Odjakhuri_-_Georgian_%28Kartvelian%29_dish_with_meat._Served_in_Galaktioni_restaurant_Istanbul.jpg",
-      [["ღორის ხორცი", "600 გ", 12], ["კარტოფილი", "1 კგ", 1.5], ["ხახვი", "2 ც", 0.5], ["ზეთი", "", 1], ["ქინძი", "1 კონა", 1]],
-      ["ხორცი ნაჭრებად დაჭერი და ტაფაზე შეწვი, სანამ არ შეიბრაწება.", "ცალკე კარტოფილი დოლკებად შეწვი.", "ხახვი რგოლებად დაჭერი და ხორცთან მოშუშე.", "ყველაფერი შეურიე, მოაყარე ქინძი და მიართვი კეცით."],
-      "ოჯახური რეცეპტი"),
-    D("elarji", "ელარჯი", "ge", 40, null,
-      [["ღომის ფქვილი", "300 გ", 3], ["სულგუნი", "500 გ", 9.5], ["მარილი", "", 0.1]],
-      ["ქვაბში წყალი აადუღე და ნელ-ნელა შეურიე ღომის ფქვილი.", "გამუდმებით ურიე 20–25 წუთი, სანამ არ გასქელდება.", "ჩაყარე დაჭრილი სულგუნი და ურიე, სანამ არ გაიჭიმება.", "ცხლად მიირთვი."],
-      "ელარჯი რეცეპტი", "4/4b/Elarji_in_Acha-Chacha_restaurant.jpg"),
-    D("satsivi", "საცივი", "ge", 120, "9/9d/Satsivi_%282%29.jpg",
-      [["ქათამი ან ინდაური", "1.5 კგ", 16], ["ნიგოზი", "500 გ", 12.5], ["ხახვი", "3 ც", 1], ["ნიორი", "1 თავი", 1], ["სუნელები", "", 2]],
-      ["ფრინველი მოხარშე და ღუმელში შეაბრაწე. ბულიონი შეინახე.", "ნიგოზი ნივრით და სუნელებით დაბლენდე.", "ხახვი ბულიონში მოხარშე და ნიგვზის მასას შეურიე, ბულიონით გააზავე.", "ხორცი ნაჭრებად დაჭერი, სოუსში ჩადე და მაცივარში გააცივე."],
-      "საცივი რეცეპტი"),
-    D("chashushuli", "ჩაშუშული", "ge", 75, "4/4d/Chashushuli_at_restaurant_Rioni.jpg",
-      [["საქონლის ხორცი", "800 გ", 18], ["პომიდორი", "1 კგ", 5], ["ხახვი", "2 ც", 1], ["ნიორი", "3 კბილი", 0.5], ["ცხარე წიწაკა", "1 ც", 1], ["ქინძი", "1 კონა", 1]],
-      ["ხორცი კუბიკებად დაჭერი და საკუთარ წვენში მოთუთქე.", "დაამატე ხახვი და ცოტა ზეთი, შეწვი.", "ჩაყარე დაჭრილი პომიდორი და წიწაკა, 40 წუთი ჩაშუშე.", "ბოლოს ნიორი და ქინძი ჩაყარე."],
-      "ჩაშუშული რეცეპტი"),
-    D("kharcho", "ხარჩო", "ge", 120, "8/8d/Kharcho_soup_of_beef_with_walnuts_and_rice%2C_Georgian_cuisine_%282%29.jpg",
-      [["საქონლის ხორცი", "600 გ", 13.5], ["ბრინჯი", "100 გ", 0.6], ["ნიგოზი", "100 გ", 2.5], ["ტყემალი", "", 2], ["ხახვი", "2 ც", 0.5], ["სუნელები", "", 1]],
-      ["ხორცი 1 საათი ხარშე, ქაფი მოხადე.", "ჩაყარე ბრინჯი და მოშუშული ხახვი.", "დაამატე დანაყილი ნიგოზი, ტყემალი და სუნელები.", "10 წუთი ადუღე და ბოლოს ქინძი და ნიორი ჩაყარე."],
-      "ხარჩო რეცეპტი"),
-    D("tabaka", "წიწილა ტაბაკა", "ge", 45, "4/42/%D0%A6%D1%8B%D0%BF%D0%BB%D0%B5%D0%BD%D0%BE%D0%BA_%D1%82%D0%B0%D0%B1%D0%B0%D0%BA%D0%B0.jpg",
-      [["წიწილა", "2 ც", 10], ["ნიორი", "1 თავი", 1], ["კარაქი", "50 გ", 2], ["მარილი, წიწაკა", "", 0.3]],
-      ["წიწილას მკერდი გაჭერი და გააბრტყელე.", "დამარილე, მოაყარე წიწაკა.", "ტაფაზე კარაქში ჩადე და ზემოდან მძიმე საგანი დაადე. ორივე მხრიდან 12–15 წუთი შეწვი.", "მიართვი ნივრის წყალთან ერთად."],
-      "წიწილა ტაბაკა რეცეპტი"),
-    D("lobiani", "ლობიანი", "ge", 120, "5/50/Lobiani%2C_Restaurant_Aragvi.jpg",
-      [["ფქვილი", "500 გ", 1.2], ["ლობიო", "300 გ", 2.1], ["ხახვი", "1 ც", 0.3], ["კარაქი", "100 გ", 3], ["საფუარი", "", 1]],
-      ["ლობიო მოხარშე და დანაყე, შეურიე შემწვარი ხახვი და კარაქი.", "საფუვრიანი ცომი მოზილე და 1 საათით დაასვენე.", "ცომში ლობიო გაახვიე და მრგვლად გააბრტყელე.", "200°-ზე გამოაცხვე 20 წუთი."],
-      "ლობიანი რეცეპტი"),
-    D("chirbuli", "ჩირბული", "breakfast", 25, null,
-      [["კვერცხი", "4 ც", 2], ["პომიდორი", "500 გ", 2.5], ["ხახვი", "1 ც", 0.3], ["ნიგოზი", "50 გ", 1.3], ["მწვანილი", "1 კონა", 1]],
-      ["ხახვი კარაქში მოშუშე, დაამატე დაჭრილი პომიდორი.", "10 წუთი ჩაშუშე, ჩაყარე დანაყილი ნიგოზი და სუნელები.", "კვერცხები პირდაპირ სოუსში ჩაამტვრიე და თავდახურული მოამზადე.", "მწვანილით მიართვი, თბილ პურთან ერთად."],
-      "ჩირბული რეცეპტი"),
-    D("pancakes", "ბლინები თაფლით", "breakfast", 25, "4/40/Foodiesfeed.com_pouring-honey-on-pancakes-with-walnuts.jpg",
-      [["ფქვილი", "200 გ", 0.5], ["კვერცხი", "2 ც", 1], ["რძე", "500 მლ", 2], ["თაფლი", "", 3], ["ნიგოზი", "50 გ", 1.3]],
-      ["კვერცხი, რძე, ფქვილი და მარილი ერთად ათქვიფე.", "გახურებულ ტაფაზე თხლად ჩაასხი და ორივე მხრიდან შეწვი.", "დააწყვე, ზემოდან თაფლი და ნიგოზი."],
-      "pancakes recipe"),
-    D("syrniki", "სირნიკები არაჟნით", "breakfast", 25, "7/7e/Syrniki6.jpg",
-      [["ხაჭო", "500 გ", 7], ["კვერცხი", "1 ც", 0.5], ["ფქვილი", "3 კ/კ", 0.3], ["შაქარი", "", 0.3], ["არაჟანი", "200 გ", 2.5]],
-      ["ხაჭო, კვერცხი, შაქარი და ფქვილი შეურიე.", "პატარა ბრტყელ ბურთულებად მოაყალიბე და ფქვილში ამოავლე.", "ზეთში ორივე მხრიდან შეწვი ოქროსფრად.", "არაჟნით ან მურაბით მიართვი."],
-      "სირნიკები რეცეპტი"),
-    D("omelette", "ომლეტი მწვანილით", "breakfast", 10, "4/4d/Gorgonzola_%2B_Bacon_Omelette_%40_Omelegg_%40_Amsterdam_%2816600947041%29.jpg",
-      [["კვერცხი", "4 ც", 2], ["რძე", "50 მლ", 0.5], ["ყველი", "100 გ", 2], ["მწვანილი", "", 1], ["კარაქი", "", 1]],
-      ["კვერცხი რძით და მარილით ათქვიფე.", "ტაფაზე კარაქი გაადნე და კვერცხი ჩაასხი.", "როცა ნახევრად შეიწვება, ყველი და მწვანილი დააყარე და გადაკეცე."],
-      "omelette recipe"),
-    D("frenchtoast", "ფრანგული ტოსტი", "breakfast", 15, "4/42/FrenchToast.JPG",
-      [["პური", "4 ნაჭერი", 1.5], ["კვერცხი", "2 ც", 1], ["რძე", "150 მლ", 0.8], ["კარაქი", "", 1], ["თაფლი და კენკრა", "", 4]],
-      ["კვერცხი, რძე და დარიჩინი ათქვიფე.", "პური ამოავლე მასაში.", "კარაქზე ორივე მხრიდან შეწვი.", "თაფლით და კენკრით მიართვი."],
-      "french toast recipe"),
-    D("shakshuka", "შაქშუქა", "breakfast", 25, "1/18/Shakshuka_by_Calliopejen1.jpg",
-      [["კვერცხი", "4 ც", 2], ["პომიდორი კონსერვი", "1 ქილა", 3], ["ბულგარული წიწაკა", "2 ც", 2], ["ხახვი", "1 ც", 0.3], ["ფეტა", "100 გ", 3]],
-      ["ხახვი და წიწაკა ზეთში მოშუშე.", "დაამატე პომიდორი, ძირა და პაპრიკა, 10 წუთი ჩაშუშე.", "სოუსში ორმოები გააკეთე და კვერცხები ჩაამტვრიე.", "თავდახურული 6–8 წუთი, ზემოდან ფეტა."],
-      "shakshuka recipe"),
-    D("carbonara", "კარბონარა", "world", 25, "3/33/Espaguetis_carbonara.jpg",
-      [["სპაგეტი", "500 გ", 4], ["ბეკონი", "200 გ", 9], ["კვერცხი", "3 ც", 1.5], ["პარმეზანი", "100 გ", 9], ["შავი პილპილი", "", 0.3]],
-      ["სპაგეტი მარილიან წყალში მოხარშე.", "ბეკონი ტაფაზე შეწვი ხრაშუნამდე.", "კვერცხი და გახეხილი პარმეზანი ათქვიფე, ბევრი პილპილი დაამატე.", "ცხელი სპაგეტი ბეკონს შეურიე, ცეცხლიდან გადმოდგი და კვერცხის მასა სწრაფად ჩაურიე, ცოტა მაკარონის წყალთან ერთად."],
-      "carbonara recipe"),
-    D("bolognese", "პასტა ბოლონეზე", "world", 90, "4/4d/Tagliatelle_al_rag%C3%B9_%28image_modified%29.jpg",
-      [["ტალიატელე", "400 გ", 4], ["ფარში", "500 გ", 10], ["პომიდორის სოუსი", "500 გ", 4], ["ხახვი, სტაფილო, ნიახური", "", 2], ["პარმეზანი", "50 გ", 4.5]],
-      ["ხახვი, სტაფილო და ნიახური წვრილად დაჭერი და მოშუშე.", "დაამატე ფარში და შეწვი.", "ჩაასხი პომიდორი და 1 საათი ნელ ცეცხლზე ჩაშუშე.", "მოხარშული პასტა სოუსს შეურიე, ზემოდან პარმეზანი."],
-      "bolognese recipe"),
-    D("lasagna", "ლაზანია", "world", 120, "b/ba/Lasagne_-_stonesoup.jpg",
-      [["ლაზანიას ფურცლები", "1 შეკვრა", 6], ["ფარში", "500 გ", 10], ["პომიდორის სოუსი", "", 4], ["რძე, კარაქი, ფქვილი", "", 5], ["მოცარელა", "200 გ", 6], ["პარმეზანი", "50 გ", 4.5]],
-      ["მოამზადე ბოლონეზეს სოუსი ფარშით და პომიდორით.", "კარაქზე ფქვილი შეწვი, რძე დაასხი და ბეშამელი მოამზადე.", "ფორმაში ფენებად ააწყვე: ფურცელი, ხორცი, ბეშამელი.", "ზემოდან ყველი და 180°-ზე 40 წუთი გამოაცხვე."],
-      "lasagna recipe"),
-    D("pizza", "პიცა მარგარიტა", "world", 90, "5/57/Neapolitan_pizza_at_Trappica_%2848701940197%29.jpg",
-      [["ფქვილი", "400 გ", 1], ["საფუარი", "", 0.5], ["პომიდორის სოუსი", "", 3], ["მოცარელა", "250 გ", 7.5], ["რეჰანი", "1 კონა", 1.5], ["ზეითუნის ზეთი", "", 1.5]],
-      ["ცომი მოზილე და 1 საათით დაასვენე.", "თხლად გააბრტყელე და სოუსი წაუსვი.", "დააწყვე მოცარელა.", "ყველაზე მაღალ ტემპერატურაზე 8–10 წუთი გამოაცხვე, ბოლოს რეჰანი დაადე."],
-      "pizza margherita recipe"),
-    D("caesar", "ცეზარის სალათი", "world", 30, "2/23/Caesar_salad_%282%29.jpg",
-      [["ქათმის ფილე", "400 გ", 7], ["რომანოს სალათი", "1 თავი", 3], ["პარმეზანი", "50 გ", 4.5], ["პური კრუტონებისთვის", "", 1], ["სოუსისთვის: კვერცხი, ლიმონი, ნიორი", "", 4]],
-      ["ქათამი შეწვი და ზოლებად დაჭერი.", "პური კუბიკებად დაჭერი და ღუმელში გააშრე.", "სოუსი მოამზადე: კვერცხის გული, ლიმონი, ნიორი, მდოგვი, ზეთი.", "სალათი, ქათამი, კრუტონები და სოუსი შეურიე, პარმეზანი მოაყარე."],
-      "caesar salad recipe"),
-    D("greek", "ბერძნული სალათი", "world", 15, "f/f2/Greece_Food_Horiatiki.JPG",
-      [["პომიდორი", "500 გ", 2.5], ["კიტრი", "2 ც", 2], ["ფეტა", "200 გ", 6], ["ზეთისხილი", "", 4], ["წითელი ხახვი", "1 ც", 0.3], ["ზეითუნის ზეთი", "", 1.5]],
-      ["პომიდორი, კიტრი და ხახვი მსხვილად დაჭერი.", "დაამატე ზეთისხილი.", "ზემოდან ფეტას ნაჭერი დადე, ზეთი და ორეგანო მოასხი."],
-      "greek salad recipe"),
-    D("curry", "ქათმის კარი ბრინჯით", "world", 45, null,
-      [["ქათმის ბარკალი", "600 გ", 8], ["ქოქოსის რძე", "1 ქილა", 6], ["კარის სუნელი", "", 4], ["ბრინჯი", "300 გ", 1.8], ["ხახვი, ნიორი, ჯანჯაფილი", "", 1.5]],
-      ["ხახვი, ნიორი და ჯანჯაფილი მოშუშე.", "დაამატე კარის სუნელი და 1 წუთი შეწვი.", "ჩაყარე ქათამი, მერე ქოქოსის რძე, 25 წუთი ჩაშუშე.", "მოხარშულ ბრინჯთან ერთად მიართვი."],
-      "chicken curry recipe"),
-    D("risotto", "რიზოტო სოკოთი", "world", 40, "a/a5/Risotto_with_speck_and_goat_cheese_%286101067436%29.jpg",
-      [["არბორიოს ბრინჯი", "300 გ", 6], ["სოკო", "400 გ", 6], ["ბულიონი", "1 ლ", 2], ["პარმეზანი", "50 გ", 4.5], ["კარაქი", "", 2], ["თეთრი ღვინო", "150 მლ", 3]],
-      ["სოკო კარაქზე შეწვი და გადმოიღე.", "ხახვი მოშუშე, ბრინჯი ჩაყარე და 2 წუთი შეწვი, ღვინო დაასხი.", "ცხელი ბულიონი თითო ჩამჩით ამატე და ურიე 18 წუთი.", "დააბრუნე სოკო, ჩაყარე კარაქი და პარმეზანი."],
-      "mushroom risotto recipe"),
-    D("burger", "ბურგერი ფრით", "world", 40, "0/0b/RedDot_Burger.jpg",
-      [["საქონლის ფარში", "400 გ", 10], ["ბურგერის ბულკა", "2 ც", 3], ["ჩედერი", "", 3], ["პომიდორი, სალათი, ხახვი", "", 2], ["სოუსი", "", 1.5], ["კარტოფილი", "1 კგ", 1.5]],
-      ["ფარში ორ კატლეტად მოაყალიბე, მარილი და პილპილი.", "ძალიან ცხელ ტაფაზე 3–4 წუთი თითო მხარეს, ბოლოს ყველი დაადე.", "ბულკა შეაბრაწე და ააწყვე ბურგერი.", "კარტოფილი ჩხირებად დაჭერი და ღუმელში ან ზეთში შეწვი."],
-      "homemade burger recipe"),
-    D("sushi", "სუში როლები", "world", 60, "6/60/Sushi_platter.jpg",
-      [["სუშის ბრინჯი", "300 გ", 7], ["ორაგული", "300 გ", 18], ["ნორი", "1 შეკვრა", 4], ["კიტრი, ავოკადო", "", 5], ["ფილადელფია", "", 6], ["სოიოს სოუსი, ვასაბი", "", 3]],
-      ["ბრინჯი მოხარშე და ბრინჯის ძმრით შეაზავე.", "ნორიზე ბრინჯი თხლად გაშალე.", "დაალაგე ორაგული, კიტრი, ავოკადო და ყველი.", "ხალიჩით მჭიდროდ დაახვიე და სველი დანით დაჭერი."],
-      "sushi rolls at home recipe"),
-    D("shawarma", "შაურმა", "world", 40, "0/00/Shawarma_2.jpg",
-      [["ქათმის ბარკალი", "500 გ", 6], ["ლავაში", "2 ც", 1.5], ["კომბოსტო, პომიდორი, კიტრი", "", 3], ["ნივრის სოუსი", "", 2], ["კარტოფილი", "", 1.5]],
-      ["ქათამი სუნელებში დაამარინადე და შეწვი, მერე წვრილად დაჭერი.", "კარტოფილი შეწვი.", "ლავაშზე სოუსი წაუსვი, დააწყვე ბოსტნეული, ქათამი და კარტოფილი.", "დაახვიე და ტაფაზე შეაბრაწე."],
-      "შაურმა სახლში რეცეპტი"),
-    D("tacos", "ტაკოსი", "world", 30, "7/73/001_Tacos_de_carnitas%2C_carne_asada_y_al_pastor.jpg",
-      [["ტორტილა", "1 შეკვრა", 5], ["ფარში", "400 გ", 8], ["ავოკადო", "1 ც", 4], ["პომიდორი, ხახვი, ლაიმი", "", 3], ["ყველი", "", 3]],
-      ["ფარში ძირით, პაპრიკით და ნიორით შეწვი.", "ავოკადოსგან გუაკამოლე მოამზადე.", "ტორტილა მშრალ ტაფაზე გააცხელე.", "ჩადე ხორცი, სალსა, გუაკამოლე და ყველი."],
-      "tacos recipe"),
-    D("borscht", "ბორში", "world", 120, "a/a7/Borscht_served.jpg",
-      [["საქონლის ხორცი", "500 გ", 11], ["ჭარხალი", "2 ც", 1.5], ["კომბოსტო", "", 1.5], ["კარტოფილი", "3 ც", 1], ["სტაფილო, ხახვი", "", 1], ["არაჟანი", "200 გ", 2.5]],
-      ["ხორცის ბულიონი მოხარშე 1 საათი.", "ჭარხალი, სტაფილო და ხახვი მოშუშე, ცოტა ძმარი დაამატე.", "ბულიონში ჯერ კარტოფილი, მერე კომბოსტო ჩაყარე.", "დაამატე მოშუშული ბოსტნეული და 10 წუთი ადუღე. არაჟნით მიართვი."],
-      "борщ рецепт"),
-    D("plov", "პლოვი", "world", 90, null,
-      [["ცხვრის ან საქონლის ხორცი", "500 გ", 13], ["ბრინჯი", "500 გ", 3], ["სტაფილო", "1 კგ", 2], ["ხახვი", "2 ც", 0.5], ["ძირა, ნიორი", "", 2]],
-      ["ქვაბში ზეთი გააცხელე, ხორცი შეწვი.", "დაამატე ხახვი, მერე ზოლებად დაჭრილი სტაფილო.", "დაასხი წყალი, ჩაყარე ძირა და მთელი ნიორი, 30 წუთი ჩაშუშე.", "ზემოდან გარეცხილი ბრინჯი დაყარე, წყალი დაამატე და არ აურიო, სანამ არ მოიხარშება."],
-      "плов рецепт", "d/dd/Afghan_Palo.jpg"),
-    D("chickensoup", "ქათმის სუპი", "world", 60, "b/b3/Chicken_Noodle_Soup.jpg",
-      [["ქათამი", "500 გ", 6], ["ვერმიშელი", "", 1.5], ["სტაფილო, ხახვი, ნიახური", "", 2], ["მწვანილი", "", 1]],
-      ["ქათამი 40 წუთი ხარშე, ქაფი მოხადე.", "ჩაყარე დაჭრილი ბოსტნეული.", "10 წუთის შემდეგ ვერმიშელი ჩაყარე.", "ბოლოს მწვანილი."],
-      "chicken noodle soup recipe"),
-    D("steak", "სტეიკი კარტოფილით", "world", 40, "9/9a/Reel_and_Brand_-_September_2021_-_Sarah_Stierch_05.jpg",
-      [["საქონლის სტეიკი", "2 ც (500 გ)", 30], ["კარტოფილი", "1 კგ", 1.5], ["კარაქი, ნიორი, როზმარინი", "", 4], ["ზეთი", "", 2]],
-      ["სტეიკი ოთახის ტემპერატურაზე გაათბე, დამარილე.", "ძალიან ცხელ ტაფაზე 3 წუთი თითო მხარეს.", "კარაქი, ნიორი და როზმარინი ჩაყარე და სტეიკს გადაასხი.", "5 წუთით დაასვენე, კარტოფილთან ერთად მიართვი."],
-      "steak recipe"),
-    D("padthai", "პად თაი", "world", 30, "3/39/Phat_Thai_kung_Chang_Khien_street_stall.jpg",
-      [["ბრინჯის ატრია", "250 გ", 5], ["კრევეტი", "300 გ", 15], ["კვერცხი", "2 ც", 1], ["არაქისი", "", 2.5], ["სოუსები", "", 5], ["ლობიოს ღივი, მწვანე ხახვი", "", 3]],
-      ["ატრია ცხელ წყალში დაალბე.", "კრევეტი შეწვი და გადმოიღე.", "კვერცხი შეწვი, დაამატე ატრია და სოუსი.", "დააბრუნე კრევეტი, ღივი, მოაყარე არაქისი და ლაიმი."],
-      "pad thai recipe"),
-    D("ramen", "რამენი", "world", 60, "c/c3/Shoyu_Ramen%EF%BC%88Tokyo_Ramen%EF%BC%89_-_01.jpg",
-      [["რამენის ატრია", "2 ულუფა", 5], ["ღორის მუცელი", "400 გ", 9], ["კვერცხი", "2 ც", 1], ["სოიოს სოუსი, მისო", "", 6], ["მწვანე ხახვი, სოკო", "", 4]],
-      ["ღორის ხორცი სოიოში და ჯანჯაფილში ჩაშუშე 40 წუთი.", "კვერცხი 6.5 წუთი მოხარშე და სოიოში დაამარინადე.", "ბულიონი მისოთი და სოიოთი შეაზავე.", "ჯამში ჩადე ატრია, დაასხი ბულიონი, დააწყვე ხორცი, კვერცხი და ხახვი."],
-      "easy ramen recipe"),
-    D("falafel", "ფალაფელი", "world", 40, "5/57/Falafels_2.jpg",
-      [["ნუტი", "300 გ", 4], ["ქინძი, ოხრახუში", "", 2], ["ნიორი, ხახვი", "", 0.8], ["პიტა", "", 3], ["თაჰინი", "", 6], ["ბოსტნეული", "", 3]],
-      ["ნუტი ღამით დაალბე (არ მოხარშო).", "ნუტი, მწვანილი, ნიორი, ხახვი და ძირა დაბლენდე.", "ბურთულები მოაყალიბე და ზეთში შეწვი.", "პიტაში ბოსტნეულთან და თაჰინის სოუსთან ერთად მიართვი."],
-      "falafel recipe"),
-    D("wings", "ცხარე ქათმის ფრთები", "world", 50, "5/51/Buffalo_wings-01.jpg",
-      [["ქათმის ფრთები", "1 კგ", 9], ["ცხარე სოუსი", "", 6], ["კარაქი", "50 გ", 2], ["ნიახური და სოუსი", "", 4]],
-      ["ფრთები გააშრე, მოაყარე მარილი და საცხობი ფხვნილი.", "220°-ზე გამოაცხვე 40 წუთი, შუაში გადააბრუნე.", "კარაქი და ცხარე სოუსი გაადნე ერთად.", "ფრთები სოუსში ამოავლე."],
-      "buffalo wings recipe"),
-    D("pelmeni", "პელმენი", "world", 90, "d/df/Pelmeni_Russian.jpg",
-      [["ფქვილი", "400 გ", 1], ["ფარში", "500 გ", 10], ["ხახვი", "1 ც", 0.3], ["არაჟანი", "200 გ", 2.5], ["კარაქი", "", 1.5]],
-      ["ცომი მოზილე და 30 წუთი დაასვენე.", "ფარშს ხახვი, მარილი და პილპილი შეურიე.", "პატარა წრეები ამოჭერი, შიგთავსი ჩადე და შეკარი.", "მარილიან წყალში 7–8 წუთი მოხარშე, არაჟნით მიართვი."],
-      "пельмени рецепт"),
-    D("friedrice", "შემწვარი ბრინჯი", "world", 25, "c/c3/Koh_Mak%2C_Thailand%2C_Fried_rice_with_seafood%2C_Thai_fried_rice.jpg",
-      [["ბრინჯი", "300 გ", 1.8], ["კვერცხი", "2 ც", 1], ["ქათმის ფილე", "300 გ", 4], ["ბარდა, სტაფილო", "", 3], ["სოიოს სოუსი", "", 2]],
-      ["ბრინჯი წინა დღით მოხარშე და გააცივე.", "ქათამი შეწვი, გადმოიღე.", "ბოსტნეული შეწვი, დაამატე კვერცხი და აურიე.", "ჩაყარე ბრინჯი, ქათამი და სოიო, მაღალ ცეცხლზე 3 წუთი."],
-      "egg fried rice recipe"),
-    D("pesto", "პასტა პესტოთი", "world", 20, "c/c9/BasilPesto.JPG",
-      [["მაკარონი", "400 გ", 4], ["რეჰანი", "3 კონა", 4.5], ["ნიგოზი", "100 გ", 2.5], ["პარმეზანი", "50 გ", 4.5], ["ზეითუნის ზეთი", "", 3], ["ნიორი", "", 0.3]],
-      ["მაკარონი მოხარშე.", "რეჰანი, ნიგოზი, ნიორი, პარმეზანი და ზეთი დაბლენდე.", "პესტო მაკარონს შეურიე ცოტა მაკარონის წყალთან ერთად."],
-      "pesto pasta recipe"),
-    D("tiramisu", "ტირამისუ", "dessert", 30, "5/58/Tiramisu_-_Raffaele_Diomede.jpg",
-      [["მასკარპონე", "500 გ", 18], ["სავოიარდი", "1 შეკვრა", 7], ["კვერცხი", "4 ც", 2], ["ყავა", "", 2], ["კაკაო, შაქარი", "", 2]],
-      ["კვერცხის გულები შაქართან ათქვიფე, შეურიე მასკარპონე.", "ცილები მაგრად ათქვიფე და ფრთხილად შეურიე კრემს.", "სავოიარდი ყავაში ამოავლე და ფენებად დააწყვე კრემთან ერთად.", "მინიმუმ 6 საათი მაცივარში, ზემოდან კაკაო."],
-      "tiramisu recipe"),
-    D("cheesecake", "ჩიზქეიქი", "dessert", 90, "e/ea/Baked_cheesecake_with_raspberries_and_blueberries.jpg",
-      [["ნაღების ყველი", "600 გ", 18], ["ნამცხვარი ფუძისთვის", "", 4], ["კარაქი", "100 გ", 3], ["კვერცხი", "3 ც", 1.5], ["ნაღები, შაქარი", "", 5], ["კენკრა", "", 6]],
-      ["ნამცხვარი დაფქვი, კარაქს შეურიე და ფორმის ძირზე დატკეპნე.", "ყველი, შაქარი, კვერცხი და ნაღები ნელა შეურიე.", "160°-ზე წყლის აბაზანაში 60 წუთი გამოაცხვე.", "ღამით გააცივე, კენკრით მიართვი."],
-      "cheesecake recipe")
-  ];
-
-  CATALOG.forEach(d => { d.cost = Math.round(d.ings.reduce((s, i) => s + i[2], 0) * 10) / 10; });
-
-  const BY_NAME = Object.fromEntries(CATALOG.map(d => [d.name, d]));
-  const findDish = name => name ? BY_NAME[name.trim()] : null;
-
-  function dishPhoto(d) {
-    if (!d || !(d.img || d.full)) return "";
-    return `img/${d.id}.jpg`; // bundled copies of the Wikimedia photos
-  }
-  const videoUrl = d => "https://www.youtube.com/results?search_query=" + encodeURIComponent(d.video);
-  const money = n => `${Math.round(n)} ₾`;
-
-  /* ---------- week menu ---------- */
-  const DAYS = ["ორშაბათი", "სამშაბათი", "ოთხშაბათი", "ხუთშაბათი", "პარასკევი", "შაბათი", "კვირა"];
-  const MEALS = [["breakfast", "საუზმე"], ["lunch", "სადილი"], ["dinner", "ვახშამი"]];
-  const MONTHS = ["იანვარი", "თებერვალი", "მარტი", "აპრილი", "მაისი", "ივნისი", "ივლისი", "აგვისტო", "სექტემბერი", "ოქტომბერი", "ნოემბერი", "დეკემბერი"];
-  const KEY = "weekly-menu-v3";
-
-  const SAMPLE = [
-    { breakfast: "ჩირბული", lunch: "ისპანახის ფხალი", dinner: "ხაჭაპური აჭარული", note: "კვირა ტკბილად დავიწყოთ" },
-    { breakfast: "ბლინები თაფლით", lunch: "ბადრიჯანი ნიგვზით", dinner: "ლობიო მჭადით", note: "" },
-    { breakfast: "სირნიკები არაჟნით", lunch: "ბერძნული სალათი", dinner: "ჩიხირთმა", note: "თბილი სუპი ცივი საღამოსთვის" },
-    { breakfast: "ომლეტი მწვანილით", lunch: "კუბდარი", dinner: "აჯაფსანდალი", note: "" },
-    { breakfast: "შაქშუქა", lunch: "შაურმა", dinner: "მწვადი", note: "პარასკევია — ვიქეიფოთ!" },
-    { breakfast: "ფრანგული ტოსტი", lunch: "ოჯახური", dinner: "ჩაქაფული", note: "" },
-    { breakfast: "ბლინები თაფლით", lunch: "ელარჯი", dinner: "შქმერული", note: "კვირა შენია ♥" }
-  ].map(d => ({ ...d, photo: "" }));
-
-  // Shared storage (when the page is opened on claude.ai): both of you see the same menu, budget and choice.
-  const shared = { db: null, owner: false };
-  let menu = load();
-  const todayIdx = (new Date().getDay() + 6) % 7;
-  const sheet = document.getElementById("sheet");
-
-  function load() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(KEY));
-      if (Array.isArray(saved) && saved.length === 7) return saved;
-    } catch (e) {}
-    return structuredClone(SAMPLE);
-  }
-  async function save(i) {
-    if (shared.db) {
-      try { await shared.db.doc("menu/d" + i).set({ ...menu[i] }); }
-      catch (e) { return false; }
-    }
-    try { localStorage.setItem(KEY, JSON.stringify(menu)); } catch (e) { if (!shared.db) return false; }
-    return true;
-  }
-  const dayPhoto = d => d.photo || dishPhoto(findDish(d.dinner));
-
-  const el = (tag, cls, text) => {
-    const n = document.createElement(tag);
-    if (cls) n.className = cls;
-    if (text != null) n.textContent = text;
-    return n;
-  };
-  function photoEl(src, alt) {
-    if (!src) return el("div", "placeholder", "🍽");
-    const img = el("img");
-    img.src = src; img.alt = alt || ""; img.loading = "lazy"; img.referrerPolicy = "no-referrer";
-    img.onerror = () => img.replaceWith(el("div", "placeholder", "🍽"));
-    return img;
-  }
-
-  /* ---------- budget ---------- */
-  const BUDGET_KEY = "budget-v1";
-  let budgetMem = 0;
-  function loadBudget() {
-    try { const b = Number(localStorage.getItem(BUDGET_KEY)); if (b >= 0) return b; } catch (e) {}
-    return budgetMem;
-  }
-  function saveBudget(b) {
-    budgetMem = b;
-    try { localStorage.setItem(BUDGET_KEY, String(b)); } catch (e) {}
-    if (shared.db) shared.db.doc("state/budget").set({ value: b }).catch(() => {});
-  }
-  const fits = (dish, budget = loadBudget()) => !budget || !dish || dish.cost <= budget;
-
-  function renderBudget() {
-    const box = document.getElementById("budget");
-    const b = loadBudget();
-    const row = el("div", "budget-row");
-    [[15, "15 ₾"], [20, "20 ₾"], [30, "30 ₾"], [50, "50 ₾"], [0, "სულ ერთია"]].forEach(([v, label]) => {
-      const c = el("button", "chip" + (b === v ? " on" : ""), label); c.type = "button";
-      c.onclick = () => setBudget(v);
-      row.append(c);
-    });
-    const custom = el("label", "custom");
-    const inp = el("input"); inp.type = "number"; inp.min = "1"; inp.inputMode = "numeric"; inp.placeholder = "სხვა";
-    inp.setAttribute("aria-label", "საკუთარი ბიუჯეტი ლარში");
-    if (b && ![15, 20, 30, 50].includes(b)) { inp.value = b; custom.classList.add("on"); }
-    inp.onchange = () => { const v = Math.round(Number(inp.value)); if (v > 0) setBudget(v); };
-    custom.append(inp, el("span", null, "₾"));
-    row.append(custom);
-    const count = CATALOG.filter(d => (d.cat === "ge" || d.cat === "world") && fits(d, b)).length;
-    box.replaceChildren(
-      el("h3", null, "რამდენის დახარჯვა გინდა დღეს?"),
-      row,
-      el("p", "muted", b ? `ამ ბიუჯეტში ${count} კერძი ჯდება` : "ყველა კერძს გაჩვენებ")
-    );
-  }
-  function setBudget(v) {
-    saveBudget(v);
-    buildDeck(); renderBudget(); renderMatch(); renderDishes();
-  }
-
-  /* ---------- today: swipe to accept or ask for another dish ---------- */
-  const CHOICE_KEY = "today-choice-v2";
-  let deck = [], pos = 0;
-  let choiceMem = null; // fallback when browser storage is unavailable
-
-  const dateKey = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
-  function loadChoice() {
-    let c = choiceMem;
-    try { c = JSON.parse(localStorage.getItem(CHOICE_KEY)) || choiceMem; } catch (e) {}
-    return c && c.date === dateKey() ? c : null;
-  }
-  function saveChoice(c) {
-    choiceMem = c ? { ...c, date: dateKey() } : null;
-    try {
-      if (c) localStorage.setItem(CHOICE_KEY, JSON.stringify(choiceMem));
-      else localStorage.removeItem(CHOICE_KEY);
-    } catch (e) {}
-    if (shared.db) {
-      const ref = shared.db.doc("state/choice");
-      (c ? ref.set({ ...choiceMem, byOwner: shared.owner }) : ref.delete()).catch(() => {});
-    }
-  }
-
-  function buildDeck() {
-    const day = menu[todayIdx];
-    const dish = findDish(day.dinner);
-    const pick = { name: day.dinner || "სიურპრიზი", photo: dayPhoto(day), dish, mine: true };
-    const others = CATALOG
-      .filter(d => (d.cat === "ge" || d.cat === "world") && d.name !== pick.name && fits(d))
-      .map(d => ({ name: d.name, photo: dishPhoto(d), dish: d }));
-    for (let i = others.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [others[i], others[j]] = [others[j], others[i]];
-    }
-    deck = fits(dish) ? [pick, ...others] : others;
-    pos = 0;
-  }
-
-  function swipeCard(item, label, mine) {
-    const card = el("div", "swipe");
-    const info = el("div", "swipe-info");
-    const pills = el("div", "pills");
-    pills.append(el("span", "pill" + (mine ? " mine" : ""), label));
-    if (item.dish) pills.append(el("span", "pill", `≈ ${money(item.dish.cost)} · ${item.dish.time} წთ`));
-    info.append(pills, el("h2", null, item.name));
-    if (item.dish) {
-      const more = el("button", "info-btn", "რეცეპტი და ფასები"); more.type = "button";
-      more.addEventListener("pointerdown", e => e.stopPropagation());
-      more.onclick = () => openRecipe(item.dish);
-      info.append(more);
-    }
-    card.append(photoEl(item.photo, item.name), info, el("span", "stamp yes", "მინდა!"), el("span", "stamp no", "სხვა"));
-    return card;
-  }
-
-  function renderMatch() {
-    const textBox = document.getElementById("matchText");
-    const deckBox = document.getElementById("deckWrap");
-    const day = menu[todayIdx];
-    const choice = loadChoice();
-    const eyebrow = el("span", "eyebrow", "დღეს · " + DAYS[todayIdx]);
-
-    if (choice) {
-      const dish = findDish(choice.name);
-      textBox.replaceChildren(eyebrow,
-        el("h1", null, "შეთანხმდით! ♥"),
-        el("p", null, shared.owner && !choice.byOwner
-          ? `მან აირჩია: ${choice.name}${dish ? ` (დაახლოებით ${money(dish.cost)})` : ""}. დროა მზადებას შეუდგე!`
-          : `დღეს ვახშმად ${choice.name} იქნება${dish ? `, დაახლოებით ${money(dish.cost)}` : ""}. უკვე ვიწყებ მზადებას.`));
-      const again = el("button", "btn", "სხვა ავირჩიო"); again.type = "button";
-      again.style.marginTop = "20px";
-      again.onclick = () => { saveChoice(null); buildDeck(); renderMatch(); };
-      textBox.append(again);
-      const deckEl = el("div", "deck chosen");
-      const card = swipeCard({ name: choice.name, photo: choice.photo, dish }, "დღევანდელი ვახშამი", true);
-      card.classList.add("heart-pop");
-      deckEl.append(card);
-      deckBox.replaceChildren(deckEl);
-      return;
-    }
-
-    textBox.replaceChildren(eyebrow,
-      el("h1", null, "რას მიირთმევ დღეს?"),
-      el("p", null, "მე უკვე ავარჩიე. თუ არ გინდა, გადაფურცლე მარცხნივ და სხვას შემოგთავაზებ."));
-    if (day.note) textBox.append(el("p", "note", day.note));
-
-    const deckEl = el("div", "deck");
-    if (!deck.length) {
-      const empty = el("div", "empty-deck");
-      empty.append(el("b", null, "ვერაფერი ვიპოვე"), document.createTextNode("ამ ბიუჯეტში კერძი არ ჯდება. ცოტა გაზარდე ბიუჯეტი."));
-      deckEl.append(empty);
-      deckBox.replaceChildren(deckEl);
-      return;
-    }
-    const label = item => item.mine ? "ჩემი არჩევანი ♥" : `ვარიანტი ${deck.indexOf(item) + 1} / ${deck.length}`;
-    const cur = deck[pos], next = deck[(pos + 1) % deck.length];
-    if (deck.length > 1) {
-      const behind = swipeCard(next, label(next), next.mine);
-      behind.classList.add("behind");
-      deckEl.append(behind);
-    }
-    const top = swipeCard(cur, label(cur), cur.mine);
-    deckEl.append(top);
-    enableDrag(top);
-
-    const choices = el("div", "choices");
-    const no = el("button", "round no", "✕"); no.type = "button"; no.setAttribute("aria-label", "სხვა კერძი მაჩვენე");
-    const yes = el("button", "round yes", "♥"); yes.type = "button"; yes.setAttribute("aria-label", "ეს მინდა");
-    no.onclick = () => decide(false);
-    yes.onclick = () => decide(true);
-    choices.append(no, yes);
-    deckBox.replaceChildren(deckEl, choices);
-  }
-
-  let busy = false;
-  function decide(yes) {
-    const top = document.querySelector(".deck:not(.chosen) .swipe:not(.behind)");
-    if (!top || busy) return;
-    busy = true;
-    const dir = yes ? 1 : -1;
-    top.querySelector(yes ? ".stamp.yes" : ".stamp.no").style.opacity = 1;
-    top.style.transition = "transform .45s cubic-bezier(.3,.6,.3,1)";
-    top.style.transform = `translateX(${dir * 140}%) rotate(${dir * 28}deg)`;
-    const behind = document.querySelector(".deck .swipe.behind");
-    if (behind) { behind.style.transform = "none"; behind.style.filter = "none"; }
-    setTimeout(() => {
-      busy = false;
-      if (yes) saveChoice({ name: deck[pos].name, photo: deck[pos].photo });
-      else pos = (pos + 1) % deck.length;
-      renderMatch();
-    }, 380);
-  }
-
-  function enableDrag(card) {
-    let startX = 0, dx = 0, dragging = false;
-    const yesStamp = card.querySelector(".stamp.yes"), noStamp = card.querySelector(".stamp.no");
-    card.addEventListener("pointerdown", e => {
-      dragging = true; startX = e.clientX; dx = 0;
-      card.setPointerCapture(e.pointerId);
-      card.style.transition = "none";
-    });
-    card.addEventListener("pointermove", e => {
-      if (!dragging) return;
-      dx = e.clientX - startX;
-      card.style.transform = `translateX(${dx}px) rotate(${dx / 18}deg)`;
-      yesStamp.style.opacity = Math.max(0, Math.min(1, dx / 100));
-      noStamp.style.opacity = Math.max(0, Math.min(1, -dx / 100));
-    });
-    const end = () => {
-      if (!dragging) return;
-      dragging = false;
-      if (Math.abs(dx) > 100) return decide(dx > 0);
-      card.style.transition = "transform .3s cubic-bezier(.2,.8,.2,1)";
-      card.style.transform = "";
-      yesStamp.style.opacity = noStamp.style.opacity = 0;
-    };
-    card.addEventListener("pointerup", end);
-    card.addEventListener("pointercancel", end);
-  }
-
-  document.addEventListener("keydown", e => {
-    if (sheet.open || e.target.closest("input, textarea, select")) return;
-    if (e.key === "ArrowRight") decide(true);
-    if (e.key === "ArrowLeft") decide(false);
-  });
-
-  /* ---------- week grid ---------- */
-  function weekRange() {
-    const now = new Date();
-    const mon = new Date(now); mon.setDate(now.getDate() - todayIdx);
-    const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
-    const f = d => `${d.getDate()} ${MONTHS[d.getMonth()]}`;
-    return `${f(mon)} — ${f(sun)}`;
-  }
-
-  function renderGrid() {
-    const total = menu.reduce((s, d) => s + (findDish(d.dinner)?.cost || 0), 0);
-    document.getElementById("weekMeta").textContent = `${weekRange()} · ვახშმები ≈ ${money(total)}`;
-    document.getElementById("grid").replaceChildren(...menu.map((d, i) => {
-      const dish = findDish(d.dinner);
-      const card = el("button", "card" + (i === todayIdx ? " is-today" : ""));
-      card.type = "button";
-      const ph = el("div", "photo");
-      ph.append(photoEl(dayPhoto(d), d.dinner), el("span", "day-chip" + (i === todayIdx ? " now" : ""), i === todayIdx ? "დღეს · " + DAYS[i] : DAYS[i]));
-      if (dish) ph.append(el("span", "price-chip", "≈ " + money(dish.cost)));
-      const body = el("div", "card-body");
-      body.append(el("h3", null, d.dinner || "სიურპრიზი"), el("p", null, [d.breakfast, d.lunch].filter(Boolean).join(" · ")));
-      card.append(ph, body);
-      card.onclick = () => openDay(i);
-      return card;
-    }));
-  }
-
-  /* ---------- dish catalog ---------- */
-  let cat = "all";
-  function renderCats() {
-    const box = document.getElementById("cats");
-    box.replaceChildren(...[["all", "ყველა"], ...Object.entries(CATS)].map(([k, label]) => {
-      const c = el("button", "chip" + (cat === k ? " on" : ""), label); c.type = "button";
-      c.onclick = () => { cat = k; renderCats(); renderDishes(); };
-      return c;
-    }));
-  }
-  function renderDishes() {
-    const q = document.getElementById("search").value.trim().toLowerCase();
-    const sort = document.getElementById("sort").value;
-    const budget = loadBudget();
-    let list = CATALOG.filter(d => (cat === "all" || d.cat === cat) &&
-      (!q || d.name.toLowerCase().includes(q) || d.ings.some(i => i[0].toLowerCase().includes(q))));
-    list.sort(sort === "pricey" ? (a, b) => b.cost - a.cost : sort === "fast" ? (a, b) => a.time - b.time : (a, b) => a.cost - b.cost);
-    document.getElementById("dishCount").textContent = `${CATALOG.length} კერძი, ფასით და რეცეპტით`;
-    const grid = document.getElementById("dishGrid");
-    if (!list.length) { grid.replaceChildren(el("p", "none", "ასეთი კერძი ვერ ვიპოვე. სცადე სხვა სიტყვა.")); return; }
-    grid.replaceChildren(...list.map(d => {
-      const card = el("button", "card"); card.type = "button";
-      const ph = el("div", "photo");
-      ph.append(photoEl(dishPhoto(d), d.name), el("span", "price-chip" + (fits(d, budget) ? "" : " over"), "≈ " + money(d.cost)));
-      const body = el("div", "card-body");
-      body.append(el("h3", null, d.name), el("p", null, `${CATS[d.cat]} · ${d.time} წთ`));
-      card.append(ph, body);
-      card.onclick = () => openRecipe(d);
-      return card;
-    }));
-  }
-  document.getElementById("search").addEventListener("input", renderDishes);
-  document.getElementById("sort").addEventListener("change", renderDishes);
-
-  /* ---------- dialogs ---------- */
-  function sheetTop(label) {
-    const top = el("div", "sheet-top");
-    top.append(el("span", "eyebrow", label));
-    const x = el("button", "close", "✕"); x.type = "button"; x.setAttribute("aria-label", "დახურვა");
-    x.onclick = () => sheet.close();
-    top.append(x);
-    return top;
-  }
-  function show(node) {
-    sheet.replaceChildren(node);
-    sheet.scrollTop = 0;
-    if (!sheet.open) sheet.showModal();
-  }
-
-  function openRecipe(d) {
-    const wrap = el("div", "sheet recipe");
-    const ph = el("div", "photo"); ph.append(photoEl(dishPhoto(d), d.name));
-    const body = el("div", "sheet-body");
-    const meta = el("div", "meta");
-    meta.append(el("span", "cost" + (fits(d) ? "" : " over"), `≈ ${money(d.cost)}`), el("span", null, `⏱ ${d.time} წთ`), el("span", null, "2 პორცია"), el("span", null, CATS[d.cat]));
-
-    const table = el("table", "ings");
-    const tb = el("tbody");
-    d.ings.forEach(([name, amount, price]) => {
-      const tr = el("tr");
-      tr.append(el("td", null, name), el("td", null, amount), el("td", null, price.toFixed(1) + " ₾"));
-      tb.append(tr);
-    });
-    const tf = el("tfoot"); const tr = el("tr");
-    const tdl = el("td", null, "სულ"); tdl.colSpan = 2;
-    tr.append(tdl, el("td", null, money(d.cost))); tf.append(tr);
-    table.append(tb, tf);
-
-    const steps = el("ol", "steps");
-    d.steps.forEach(s => steps.append(el("li", null, s)));
-
-    const actions = el("div", "actions");
-    const vid = el("a", "btn video", "▶ ვიდეო რეცეპტი");
-    vid.href = videoUrl(d); vid.target = "_blank"; vid.rel = "noopener";
-    actions.append(vid);
-    if (!loadChoice() && fits(d)) {
-      const pick = el("button", "btn accent", "♥ დღეს ეს მინდა"); pick.type = "button";
-      pick.onclick = () => {
-        saveChoice({ name: d.name, photo: dishPhoto(d) });
-        sheet.close(); renderMatch();
-        document.getElementById("today").scrollIntoView();
-      };
-      actions.append(pick);
-    }
-
-    body.append(sheetTop(CATS[d.cat]), el("h2", null, d.name), meta,
-      el("h4", null, "ინგრედიენტები და ფასები"), table,
-      el("h4", null, "მომზადება"), steps,
-      el("p", "fine", "ფასები მიახლოებითია და მაღაზიის მიხედვით იცვლება."), actions);
-    wrap.append(ph, body);
-    show(wrap);
-  }
-
-  function openDay(i) {
-    const d = menu[i];
-    const dish = findDish(d.dinner);
-    const wrap = el("div", "sheet");
-    const ph = el("div", "photo"); ph.append(photoEl(dayPhoto(d), d.dinner));
-    const body = el("div", "sheet-body");
-    body.append(sheetTop(i === todayIdx ? "დღეს · " + DAYS[i] : DAYS[i]), el("h2", null, d.dinner || "სიურპრიზი"));
-    if (dish) {
-      const meta = el("div", "meta");
-      meta.append(el("span", "cost" + (fits(dish) ? "" : " over"), `≈ ${money(dish.cost)}`), el("span", null, `⏱ ${dish.time} წთ`));
-      body.append(meta);
-    }
-    const meals = el("div", "meals");
-    MEALS.forEach(([k, label]) => {
-      const row = el("div");
-      const val = el("span", null, d[k] || "—");
-      row.append(el("small", null, label), val);
-      meals.append(row);
-    });
-    body.append(meals);
-    if (d.note) body.append(el("p", "note", d.note));
-    const actions = el("div", "actions");
-    if (dish) {
-      const r = el("button", "btn accent", "რეცეპტი და ფასები"); r.type = "button";
-      r.onclick = () => openRecipe(dish);
-      actions.append(r);
-    }
-    const edit = el("button", "btn soft", "მენიუს შეცვლა"); edit.type = "button";
-    edit.onclick = () => editDay(i);
-    actions.append(edit);
-    body.append(actions);
-    wrap.append(ph, body);
-    show(wrap);
-  }
-
-  function editDay(i) {
-    const draft = { ...menu[i] };
-    const wrap = el("div", "sheet");
-    const ph = el("div", "photo");
-    const drawPhoto = () => {
-      const up = el("div", "upload");
-      const lab = el("label", null, draft.photo ? "ფოტოს შეცვლა" : "ჩემი ფოტო");
-      const file = el("input"); file.type = "file"; file.accept = "image/*";
-      file.onchange = async () => {
-        if (!file.files[0]) return;
-        draft.photo = await shrink(file.files[0]);
-        drawPhoto();
-      };
-      lab.append(file); up.append(lab);
-      if (draft.photo) {
-        const rm = el("button", null, "წაშლა"); rm.type = "button";
-        rm.onclick = () => { draft.photo = ""; drawPhoto(); };
-        up.append(rm);
-      }
-      ph.replaceChildren(photoEl(dayPhoto(draft), draft.dinner), up);
-    };
-    drawPhoto();
-
-    const body = el("div", "sheet-body");
-    const form = el("form", "edit");
-    const listId = "dish-list";
-    const field = (key, label, multi) => {
-      const l = el("label", null, label);
-      const inp = el(multi ? "textarea" : "input");
-      if (!multi) { inp.type = "text"; inp.setAttribute("list", listId); } else inp.rows = 2;
-      inp.value = draft[key] || "";
-      inp.oninput = () => { draft[key] = inp.value; if (key === "dinner") drawPhoto(); };
-      l.append(inp); form.append(l);
-    };
-    const dl = el("datalist"); dl.id = listId;
-    CATALOG.forEach(d => { const o = el("option"); o.value = d.name; dl.append(o); });
-    form.append(dl);
-    field("dinner", "ვახშამი (აირჩიე სიიდან ან ჩაწერე)");
-    field("breakfast", "საუზმე");
-    field("lunch", "სადილი");
-    field("note", "პატარა წერილი", true);
-
-    const err = el("p", "error");
-    const actions = el("div", "actions");
-    const ok = el("button", "btn accent", "შენახვა"); ok.type = "submit";
-    const cancel = el("button", "btn soft", "გაუქმება"); cancel.type = "button";
-    cancel.onclick = () => openDay(i);
-    actions.append(ok, cancel);
-    form.append(err, actions);
-    form.onsubmit = async e => {
-      e.preventDefault();
-      const before = menu[i];
-      Object.keys(draft).forEach(k => { if (typeof draft[k] === "string" && k !== "photo") draft[k] = draft[k].trim(); });
-      menu[i] = draft;
-      ok.disabled = true;
-      const saved = await save(i);
-      ok.disabled = false;
-      if (!saved) {
-        menu[i] = before;
-        err.textContent = "ვერ შეინახა — ფოტო ძალიან დიდია. სცადე სხვა ფოტო.";
-        return;
-      }
-      buildDeck(); renderMatch(); renderGrid(); openDay(i);
-    };
-
-    body.append(sheetTop(DAYS[i]), form);
-    wrap.append(ph, body);
-    show(wrap);
-  }
-
-  // Resize uploads so a week of photos fits in browser storage.
-  function shrink(fileObj, max = 800) {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => {
-        const s = Math.min(1, max / Math.max(img.width, img.height));
-        const c = document.createElement("canvas");
-        c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
-        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-        URL.revokeObjectURL(img.src);
-        resolve(c.toDataURL("image/jpeg", .8));
-      };
-      img.onerror = reject;
-      img.src = URL.createObjectURL(fileObj);
-    });
-  }
-
-  sheet.addEventListener("click", e => { if (e.target === sheet) sheet.close(); });
-
-  /* ---------- nav highlight ---------- */
-  const navLinks = document.querySelectorAll("[data-sec]");
-  const spy = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-      if (en.isIntersecting) navLinks.forEach(a => a.classList.toggle("on", a.dataset.sec === en.target.id));
-    });
-  }, { rootMargin: "-45% 0px -50% 0px" });
-  ["today", "week", "dishes"].forEach(id => spy.observe(document.getElementById(id)));
-
-  buildDeck(); renderBudget(); renderMatch(); renderGrid(); renderCats(); renderDishes();
-
-  /* ---------- shared sync ---------- */
-  (async () => {
-    if (!window.claude || !claude.use) return;
-    const [db, user] = await Promise.all([claude.use("db"), claude.use("user")]);
-    if (!db) return;
-    shared.db = db;
-    shared.owner = user?.isOwner() ?? false;
-    const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-    const refresh = () => { buildDeck(); renderBudget(); renderMatch(); renderGrid(); renderDishes(); };
-
-    db.doc("state/choice").onSnapshot(snap => {
-      const c = snap.exists ? snap.data() : null;
-      if (same(c, choiceMem)) return;
-      choiceMem = c;
-      try { c ? localStorage.setItem(CHOICE_KEY, JSON.stringify(c)) : localStorage.removeItem(CHOICE_KEY); } catch (e) {}
-      buildDeck(); renderMatch();
-    }, () => {});
-    db.doc("state/budget").onSnapshot(snap => {
-      const b = snap.exists ? Number(snap.data().value) || 0 : loadBudget();
-      if (b === budgetMem && b === loadBudget()) return;
-      budgetMem = b;
-      try { localStorage.setItem(BUDGET_KEY, String(b)); } catch (e) {}
-      refresh();
-    }, () => {});
-    db.collection("menu").onSnapshot(qs => {
-      let changed = false;
-      qs.docs.forEach(d => {
-        const i = Number(d.id.slice(1));
-        if (i >= 0 && i < 7 && !same(d.data(), menu[i])) { menu[i] = { ...SAMPLE[i], ...d.data() }; changed = true; }
-      });
-      if (changed) refresh();
-    }, () => {});
-  })();
-</script>
+<script src="dishes.js?v=3"></script>
+<script src="dishes-more.js?v=3"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>
